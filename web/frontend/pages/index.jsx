@@ -2,9 +2,9 @@ import {
   Card,
   Page,
   Layout,
-  TextContainer,
+  VerticalStack,
   Image,
-  Stack,
+  LegacyStack,
   Link,
   Text,
 } from "@shopify/polaris";
@@ -22,15 +22,15 @@ export default function HomePage() {
       <TitleBar title={t("HomePage.title")} primaryAction={null} />
       <Layout>
         <Layout.Section>
-          <Card sectioned>
-            <Stack
+          <AlphaCard sectioned>
+            <LegacyStack
               wrap={false}
               spacing="extraTight"
               distribution="trailing"
               alignment="center"
             >
-              <Stack.Item fill>
-                <TextContainer spacing="loose">
+              <LegacyStack.Item fill>
+                <VerticalStack spacing="loose">
                   <Text as="h2" variant="headingMd">
                     {t("HomePage.heading")}
                   </Text>
@@ -70,9 +70,9 @@ export default function HomePage() {
                       }}
                     />
                   </p>
-                </TextContainer>
-              </Stack.Item>
-              <Stack.Item>
+                </VerticalStack>
+              </LegacyStack.Item>
+              <LegacyStack.Item>
                 <div style={{ padding: "0 20px" }}>
                   <Image
                     source={trophyImage}
@@ -80,9 +80,9 @@ export default function HomePage() {
                     width={120}
                   />
                 </div>
-              </Stack.Item>
-            </Stack>
-          </Card>
+              </LegacyStack.Item>
+            </LegacyStack>
+          </AlphaCard>
         </Layout.Section>
         <Layout.Section>
           <ProductsCard />
