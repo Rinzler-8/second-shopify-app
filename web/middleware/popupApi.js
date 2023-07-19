@@ -13,8 +13,6 @@ import { PopupDB } from "../db.js";
 import {
   getQrCodeOr404,
   getShopUrlFromSession,
-  parseQrCodeBody,
-  formatQrCodeResponse,
 } from "../helpers/popups.js";
 
 const SHOP_DATA_QUERY = `
@@ -116,17 +114,17 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.get("/api/popup", async (req, res) => {
-    try {
-      const rawCodeData = await PopupDB.list(
-        await getShopUrlFromSession(req, res)
-      );
+    // try {
+    //   const rawCodeData = await PopupDB.list(
+    //     await getShopUrlFromSession(req, res)
+    //   );
 
-      const response = await formatQrCodeResponse(req, res, rawCodeData);
-      res.status(200).send(response);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(error.message);
-    }
+    //   const response = await formatQrCodeResponse(req, res, rawCodeData);
+    //   res.status(200).send(response);
+    // } catch (error) {
+    //   console.error(error);
+    //   res.status(500).send(error.message);
+    // }
   });
 
   app.get("/api/popup/:id", async (req, res) => {
