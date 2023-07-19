@@ -1,0 +1,6 @@
+<svg viewBox="0 0 280 280">
+    <path fill="none" stroke="currentColor" strokeWidth="15" strokeLinejoin="round" d="M214.91,82.5A19.32,19.32,0,0,0,195.67,65H126.33a19.35,19.35,0,0,0-13.68,5.67l-102,102a19.33,19.33,0,0,0,0,27.34L80,269.34a19.34,19.34,0,0,0,27.35,0l102-102A19.38,19.38,0,0,0,215,153.67V107.08"/>
+    <circle fill="none" stroke="currentColor" strokeWidth="15" strokeLinecap="round" cx="175" cy="105" r="15"/>
+    <path fill="none" stroke="currentColor" strokeWidth="15" strokeLinecap="round" d="M193.29,47.17C204.37,25.05,219.39,5,235.25,5c12.6,0,21.3.15,30.45,9.3S275,32.15,275,44.75c0,20.1-32.2,38.85-60,50a201.1,201.1,0,0,1-25.15,8.35c-7.7,1.9-13.1,2.5-14.25,1.35"/>
+    <path fill="none" stroke="currentColor" strokeWidth="15" strokeLinejoin="round" d="M190.37,53.23c.94-2,1.91-4.06,2.92-6.06"/><path fill="none" stroke="currentColor" strokeWidth="15" strokeLinecap="round" d="M134,175a20.51,20.51,0,1,0-29,0"/><path fill="none" stroke="currentColor" strokeWidth="15" strokeLinecap="round" d="M76,175a20.51,20.51,0,1,0,29,0"/>
+</svg>

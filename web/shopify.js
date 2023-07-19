@@ -7,8 +7,8 @@ import { PopupDB } from "./db.js";
 PopupDB.init();
 const shopify = shopifyApp({
   api: {
-    apiKey: "47d82d2e6027eebe39ad9bc6ce901190",
-    apiSecretKey: "48fe58e6466a3ef66fbad90002eecc8f",
+    apiKey: "8583289746d7015234fb94a19305f5ad",
+    apiSecretKey: "022a8c59ae9dd43da34413c004bc69c2",
     apiVersion: LATEST_API_VERSION,
     restResources,
   },

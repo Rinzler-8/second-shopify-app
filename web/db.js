@@ -8,7 +8,6 @@ import shopify from "./shopify.js";
 
 const uri = "mongodb://localhost:27017"; // Replace with your MongoDB URI
 const client = new MongoClient(uri);
-const DEFAULT_PURCHASE_QUANTITY = 1;
 let db;
 
 async function connectToDB() {
