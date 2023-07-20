@@ -1,11 +1,8 @@
 import styled from "styled-components";
-import ImageSelect from "@components/imageSelect";
-import ImagePicker from "@components/imagePicker";
-import Popup1 from "@assets/popup/1.jpg";
-import Popup2 from "@assets/popup/2.jpg";
-import Popup3 from "@assets/popup/3.jpg";
-import Popup4 from "@assets/popup/4.jpg";
-import { useStore } from "@pages/popup/container";
+import ImageSelect from "../components/imageSelect";
+import ImagePicker from "../components/imagePicker";
+import Popup1 from "../assets/popup/1.jpg";
+import { useStore } from "./container";
 import {
   Card,
   Checkbox,
@@ -14,8 +11,8 @@ import {
   TextField,
 } from "@shopify/polaris";
 import { useEffect, useState } from "react";
-import ShopifyAPI from "@helpers/shopifyApi";
-import ColorPicker from "@components/colorPicker";
+import ShopifyAPI from "./../helpers/shopifyApi";
+import ColorPickerWithTransparent from "./../components/colorPicker";
 
 const Wrapper = styled.div`
   .item {
@@ -92,25 +89,25 @@ const PopupTemplate = ({ handleSave }) => {
       </Card>
       <Card sectioned title={"Colors & Image"}>
         <FormLayout>
-          <ColorPicker
+          <ColorPickerWithTransparent
             label={"Background color"}
             value={popup_bg}
             onChange={(v) => handleChange("popup_bg", v)}
             show_input
           />
-          <ColorPicker
+          <ColorPickerWithTransparent
             label={"Text color"}
             value={text_color}
             onChange={(v) => handleChange("text_color", v)}
             show_input
           />
-          <ColorPicker
+          <ColorPickerWithTransparent
             label={"Button color"}
             value={button_color}
             onChange={(v) => handleChange("button_color", v)}
             show_input
           />
-          <ColorPicker
+          <ColorPickerWithTransparent
             label={"Teaser color"}
             value={teaser_color}
             onChange={(v) => handleChange("teaser_color", v)}

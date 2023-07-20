@@ -1,2 +1,3 @@
-export { Popup } from "../pages/popup/PopupModal";
+import Popup from "./../pages/index";
+export { Popup };
 export * from "./providers";

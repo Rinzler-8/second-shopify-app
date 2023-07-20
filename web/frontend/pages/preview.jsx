@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Icon } from "@shopify/polaris";
 import { MobileCancelMajor } from "@shopify/polaris-icons";
 import "../styles/popup.scss";
-import { useStore } from "@pages/popup/container";
+import { useStore } from "./container";
 
 const Preview = styled.div`
   position: relative;
