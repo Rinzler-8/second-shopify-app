@@ -1,6 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { InlineError } from "@shopify/polaris";
-import { generateRandomID } from "@helpers/utils";
+import { generateRandomID } from "./../helpers/utils";
 
 function RichText({
   value,

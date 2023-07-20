@@ -5,61 +5,61 @@ import {
   SkeletonPage,
   VerticalStack,
   Layout,
-  AlphaCard,
+  LegacyCard,
 } from "@shopify/polaris";
 
 export const Skeleton = ({ fullWidth }) => (
   <SkeletonPage secondaryActions={2} fullWidth={fullWidth || false}>
     <Layout>
       <Layout.Section>
-        <AlphaCard sectioned>
+        <LegacyCard sectioned>
           <SkeletonBodyText />
-        </AlphaCard>
-        <AlphaCard sectioned>
+        </LegacyCard>
+        <LegacyCard sectioned>
           <VerticalStack>
             <SkeletonDisplayText size="small" />
             <SkeletonBodyText />
           </VerticalStack>
-        </AlphaCard>
-        <AlphaCard sectioned>
+        </LegacyCard>
+        <LegacyCard sectioned>
           <VerticalStack>
             <SkeletonDisplayText size="small" />
             <SkeletonBodyText />
           </VerticalStack>
-        </AlphaCard>
-        <AlphaCard sectioned>
+        </LegacyCard>
+        <LegacyCard sectioned>
           <VerticalStack>
             <SkeletonDisplayText size="small" />
             <SkeletonBodyText />
           </VerticalStack>
-        </AlphaCard>
+        </LegacyCard>
       </Layout.Section>
       <Layout.Section secondary>
-        <AlphaCard>
-          <AlphaCard.Section>
+        <LegacyCard>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonDisplayText size="small" />
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <SkeletonBodyText lines={1} />
-          </AlphaCard.Section>
-        </AlphaCard>
-        <AlphaCard subdued>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+        </LegacyCard>
+        <LegacyCard subdued>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonDisplayText size="small" />
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <SkeletonBodyText lines={2} />
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <SkeletonBodyText lines={2} />
-          </AlphaCard.Section>
-        </AlphaCard>
+          </LegacyCard.Section>
+        </LegacyCard>
       </Layout.Section>
     </Layout>
   </SkeletonPage>
@@ -72,48 +72,48 @@ export const SkeletonList = ({ fullWidth }) => (
   >
     <Layout>
       <Layout.Section>
-        <AlphaCard>
-          <AlphaCard.Section>
+        <LegacyCard>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-          <AlphaCard.Section>
+          </LegacyCard.Section>
+          <LegacyCard.Section>
             <VerticalStack>
               <SkeletonBodyText lines={2} />
             </VerticalStack>
-          </AlphaCard.Section>
-        </AlphaCard>
+          </LegacyCard.Section>
+        </LegacyCard>
       </Layout.Section>
     </Layout>
   </SkeletonPage>

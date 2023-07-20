@@ -32,7 +32,14 @@ export const ShopInfoDB = {
   shopInfoTableName: "shop_info",
   shopInfoCollection: connect.shopInfoCollection,
 
-  create: async function ({ shopDomain, name, country, phone, owner }) {
+  create: async function ({
+    shopDomain,
+    name,
+    country,
+    phone,
+    owner,
+    deleted,
+  }) {
     await this.ready;
 
     const document = {
@@ -41,6 +48,7 @@ export const ShopInfoDB = {
       country,
       phone,
       owner,
+      deleted,
     };
 
     const result = await this.shopInfoCollection.insertOne(document);
@@ -55,6 +63,14 @@ export const ShopInfoDB = {
 
     return shop;
   },
+  readDomain: async function (shopDomain) {
+    await this.ready;
+
+    const query = { shopDomain };
+    const shop = await this.shopInfoCollection.findOne(query);
+
+    return shop;
+  },
 
   list: async function () {
     await this.ready;
@@ -63,17 +79,20 @@ export const ShopInfoDB = {
     return results;
   },
 
-  update: async function (id, { shopDomain, name, country, phone, owner }) {
+  update: async function (
+    shopDomain,
+    { name, country, phone, owner, deleted }
+  ) {
     await this.ready;
 
-    const query = { _id: new ObjectId(id) };
+    const query = { shopDomain };
     const updateDocument = {
       $set: {
-        shopDomain,
         name,
         country,
         phone,
         owner,
+        deleted,
       },
     };
 
@@ -216,3 +235,4 @@ export const PopupDB = {
     }
   },
 };
+PopupDB.init();

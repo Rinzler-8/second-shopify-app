@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "vite build",
-    "dev": "vite",
+    "dev": "vite --force",
     "coverage": "vitest run --coverage"
   },
   "type": "module",
@@ -26,8 +26,10 @@
     "@shopify/polaris": "^10.49.1",
     "@shopify/react-form": "^2.5.5",
     "@shopify/react-hooks": "^3.0.5",
+    "@tinymce/tinymce-react": "^4.3.0",
     "@vitejs/plugin-react": "1.2.0",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
     "eslint": "^8.45.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",

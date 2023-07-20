@@ -1,5 +1,5 @@
 // @ts-check
-import { join } from "path";
+import { join, dirname } from "path";
 import { readFileSync } from "fs";
 import express from "express";
 import serveStatic from "serve-static";
@@ -14,10 +14,11 @@ const PORT = parseInt(
   10
 );
 
+const frontendPath = dirname(process.cwd()); // This will go one directory level up to remove the 'backend' part
 const STATIC_PATH =
   process.env.NODE_ENV === "production"
-    ? `${process.cwd()}/frontend/dist`
-    : `${process.cwd()}/frontend/`;
+    ? join(frontendPath, "/frontend/dist")
+    : join(frontendPath, "/frontend/");
 
 const app = express();
 

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "esnext",
+    "paths": {
+      "*": ["node_modules/*"],
+      "#api/*": ["./api/*"],
+      "#configs/*": ["./configs/*"],
+      "#helpers/*": ["./helpers/*"],
+      "#constants/*": ["./constants/*"],
+      "#middleware/*": ["./middleware/*"],
+      "#models/*": ["./models/*"],
+      "#webhooks/*": ["./webhooks/*"],
+      "#services/*": ["./services/*"],
+      "#triggers/*": ["./triggers/*"],
+      "#proxy/*": ["./proxy/*"],
+      "#redis/*": ["./redis/*"],
+      "#migrates/*": ["./migrates/*"]
+    }
+  },
+  "include": ["./**/*"],
+  "exclude": ["node_modules"]
+}

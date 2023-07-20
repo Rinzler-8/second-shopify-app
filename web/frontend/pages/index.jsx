@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  AlphaCard,
   Page,
   Layout,
   LegacyCard,
@@ -12,7 +11,7 @@ import { ContextProvider } from "./container";
 import { useStore } from "./container";
 import { Skeleton } from "./../modules/skeleton";
 import { CancelToken } from "./../plugins/axios";
-import RichText from './../components/richtext';
+import RichText from "./../components/richtext";
 
 const Popup = () => {
   return (
@@ -154,7 +153,7 @@ const PopupView = () => {
             </LegacyCard>
 
             <LegacyCard title="Content settings" sectioned>
-              <AlphaCard.Section>
+              <LegacyCard.Section>
                 <FormLayout>
                   <TextField
                     label={"Title"}
@@ -199,7 +198,7 @@ const PopupView = () => {
                     </FormLayout.Group>
                   )}
                 </FormLayout>
-              </AlphaCard.Section>
+              </LegacyCard.Section>
             </LegacyCard>
             <LegacyCard title="Colors & Image" sectioned>
               <p>
