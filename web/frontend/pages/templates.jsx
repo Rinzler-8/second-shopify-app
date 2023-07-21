@@ -2,14 +2,11 @@ import styled from "styled-components";
 import ImageSelect from "../components/imageSelect";
 import ImagePicker from "../components/imagePicker";
 import Popup1 from "../assets/popup/1.jpg";
+import Popup2 from "../assets/popup/2.jpg";
+import Popup3 from "../assets/popup/3.jpg";
+import Popup4 from "../assets/popup/4.jpg";
 import { useStore } from "./container";
-import {
-  Card,
-  Checkbox,
-  ChoiceList,
-  FormLayout,
-  TextField,
-} from "@shopify/polaris";
+import { LegacyCard, FormLayout } from "@shopify/polaris";
 import { useEffect, useState } from "react";
 import ShopifyAPI from "./../helpers/shopifyApi";
 import ColorPickerWithTransparent from "./../components/colorPicker";
@@ -32,7 +29,7 @@ const Wrapper = styled.div`
 const PopupTemplate = ({ handleSave }) => {
   const [themeId, setThemeId] = useState("");
   const { state, dispatch } = useStore();
-  const { template, image, popup_bg, text_color, button_color, teaser_color } =
+  const { template, image, popup_bg, text_color, button_color } =
     state;
 
   useEffect(() => {
@@ -55,7 +52,7 @@ const PopupTemplate = ({ handleSave }) => {
 
   return (
     <>
-      <Card sectioned title={"Pick a template"}>
+      <LegacyCard sectioned title={"Pick a template"}>
         <Wrapper>
           <ImageSelect
             columns={2}
@@ -86,8 +83,8 @@ const PopupTemplate = ({ handleSave }) => {
             hideLabel
           />
         </Wrapper>
-      </Card>
-      <Card sectioned title={"Colors & Image"}>
+      </LegacyCard>
+      <LegacyCard sectioned title={"Colors & Image"}>
         <FormLayout>
           <ColorPickerWithTransparent
             label={"Background color"}
@@ -105,12 +102,6 @@ const PopupTemplate = ({ handleSave }) => {
             label={"Button color"}
             value={button_color}
             onChange={(v) => handleChange("button_color", v)}
-            show_input
-          />
-          <ColorPickerWithTransparent
-            label={"Teaser color"}
-            value={teaser_color}
-            onChange={(v) => handleChange("teaser_color", v)}
             show_input
           />
           <ImagePicker
@@ -131,7 +122,7 @@ const PopupTemplate = ({ handleSave }) => {
             }}
           />
         </FormLayout>
-      </Card>
+      </LegacyCard>
     </>
   );
 };

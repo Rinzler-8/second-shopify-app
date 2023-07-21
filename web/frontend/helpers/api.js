@@ -1,5 +1,5 @@
-import axios from "@plugins/axios";
-import { showToast } from "@plugins/toast";
+import axios from "../plugins/axios";
+import { showToast } from "../plugins/toast";
 
 const ROOT_API = "/api/plugin";
 

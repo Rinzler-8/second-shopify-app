@@ -18,7 +18,6 @@ async function connectToDB() {
     const collections = {
       popupCollection: db.collection("pop_ins"),
       shopInfoCollection: db.collection("shop_info"),
-      // Add more collections as needed
     };
     return collections;
   } catch (err) {
@@ -111,11 +110,11 @@ export const PopupDB = {
     shopDomain,
     title,
     description,
-    text,
-    link,
-    backgroundColor,
-    textColor,
-    btnColor,
+    button,
+    button_url,
+    popup_bg,
+    text_color,
+    button_color,
     image,
   }) {
     await this.ready;
@@ -124,11 +123,11 @@ export const PopupDB = {
       shopDomain,
       title,
       description,
-      text,
-      link,
-      backgroundColor,
-      textColor,
-      btnColor,
+      button,
+      button_url,
+      popup_bg,
+      text_color,
+      button_color,
       image,
       createdAt: new Date(),
     };
@@ -137,39 +136,40 @@ export const PopupDB = {
     return result.insertedId;
   },
 
-  read: async function (id) {
+  readDomain: async function (shopDomain) {
     await this.ready;
 
-    const query = { _id: new ObjectId(id) };
-    const popup = await this.popupCollection.findOne(query);
-    return popup;
+    const query = { shopDomain };
+    const shop = await this.popupCollection.findOne(query);
+
+    return shop;
   },
 
   update: async function (
-    id,
+    shopDomain,
     {
       title,
       description,
-      text,
-      link,
-      backgroundColor,
-      textColor,
-      btnColor,
+      button,
+      button_url,
+      popup_bg,
+      text_color,
+      button_color,
       image,
     }
   ) {
     await this.ready;
 
-    const query = { _id: new ObjectId(id) };
+    const query = { shopDomain };
     const updateDocument = {
       $set: {
         title,
         description,
-        text,
-        link,
-        backgroundColor,
-        textColor,
-        btnColor,
+        button,
+        button_url,
+        popup_bg,
+        text_color,
+        button_color,
         image,
       },
     };
@@ -195,11 +195,6 @@ export const PopupDB = {
     return true;
   },
 
-  /* The btnColor URL for a QR code is generated at query time */
-  generateQrcodeDestinationUrl: function (popup) {
-    return `${shopify.api.config.hostScheme}://${shopify.api.config.hostName}/popup/${popup._id}/scan`;
-  },
-
   /* Private */
 
   /*
@@ -218,9 +213,9 @@ export const PopupDB = {
     try {
       this.ready = Promise.resolve();
 
-      const hasQrCodesCollection = await this.__hasPopupCollection();
+      const hasPopupCollection = await this.__hasPopupCollection();
 
-      if (!hasQrCodesCollection) {
+      if (!hasPopupCollection) {
         const indexes = [
           { key: { shopDomain: 1 } },
           { key: { createdAt: 1 }, expireAfterSeconds: 86400 }, // Auto-delete documents after 24 hours

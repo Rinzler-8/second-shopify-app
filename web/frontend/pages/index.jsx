@@ -6,12 +6,17 @@ import {
   FormLayout,
   Checkbox,
   TextField,
+  PageActions,
 } from "@shopify/polaris";
 import { ContextProvider } from "./container";
 import { useStore } from "./container";
 import { Skeleton } from "./../modules/skeleton";
 import { CancelToken } from "./../plugins/axios";
 import RichText from "./../components/richtext";
+import PopupTemplate from "./templates";
+import LayoutSection from "./../modules/layoutSection";
+import PreviewPopup from "./preview";
+import API from "./../helpers/api";
 
 const Popup = () => {
   return (
@@ -40,26 +45,20 @@ const PopupView = () => {
   );
   const {
     active,
-    popup_type,
     title,
     description,
-    show_on_mobile,
     button,
     save_to,
     button_url,
     platforms,
   } = state;
-  const handleTabChange = useCallback(
-    (selectedTabIndex) => setSelected(selectedTabIndex),
-    []
-  );
+
 
   useEffect(() => {
     let result;
     const fetchData = async () => {
       try {
         result = await API.getList("popup", {}, source.token);
-        console.log("Data details", result);
         if (result && result.ok) {
           dispatch({ type: "setData", payload: result.payload });
           if (result.payload) {
@@ -77,12 +76,6 @@ const PopupView = () => {
 
   const handleSave = async (data = {}) => {
     setError(!save_to.length && !platforms.length);
-    if (!save_to.length && !platforms.length) {
-      return showToast({
-        message: 'Please choose at least 1 option in the "Data collection"',
-        error: true,
-      });
-    }
     setSaving(true);
     const saveData = { ...state, ...data };
     dispatch({ type: "setData", payload: saveData });
@@ -104,38 +97,6 @@ const PopupView = () => {
   const handleChange = (key, value) => {
     dispatch({ type: "setData", payload: { [key]: value } });
   };
-  const handleDelete = (data) => {
-    showConfirm({
-      title: `Delete this list?`,
-      message: "This can’t be undone.",
-      danger: true,
-      confirm: "Delete",
-    }).then((res) => {
-      if (res) {
-        const filterPlatforms = platforms.filter(
-          (item) => item._id !== data._id
-        );
-        setError(!save_to.length && !filterPlatforms.length);
-        if (!save_to.length && !filterPlatforms.length) {
-          return showToast({
-            message: 'Please choose at least 1 option in the "Data collection"',
-            error: true,
-          });
-        }
-
-        axios.delete(`/api/plugin/integration/lists/${data._id}`);
-        const saveData = { ...state, platforms: filterPlatforms };
-        dispatch({
-          type: "setData",
-          payload: {
-            ...saveData,
-          },
-        });
-
-        handleSave(saveData);
-      }
-    });
-  };
 
   return ready ? (
     <Page fullWidth>
@@ -153,67 +114,55 @@ const PopupView = () => {
             </LegacyCard>
 
             <LegacyCard title="Content settings" sectioned>
-              <LegacyCard.Section>
-                <FormLayout>
+              <FormLayout>
+                <TextField
+                  label={"Title"}
+                  value={title}
+                  onChange={(v) => handleChange("title", v)}
+                />
+                <RichText
+                  label={"Description"}
+                  value={description}
+                  compact
+                  onChange={(e) => {
+                    handleChange("description", e);
+                    console.log(e, "description");
+                  }}
+                />
+                <FormLayout.Group>
                   <TextField
-                    label={"Title"}
-                    value={title}
-                    onChange={(v) => handleChange("title", v)}
+                    label={"Button"}
+                    value={button}
+                    // onChange={(v) => handleChange("button", v)}
                   />
-                  <RichText
-                    label={"Description"}
-                    value={description}
-                    compact
-                    onChange={(e) => {
-                      handleChange("description", e);
-                      console.log(e, "description");
-                    }}
+                  <TextField
+                    label={"Button link"}
+                    value={button_url}
+                    placeholder={"https://"}
+                    // onChange={(v) => handleChange("button_url", v)}
                   />
-                  {["collect_lead", "subscribe_to_discount"].includes(
-                    popup_type
-                  ) ? (
-                    <FormLayout.Group>
-                      <TextField
-                        label={"Button"}
-                        value={button}
-                        onChange={(v) => handleChange("button", v)}
-                      />
-                    </FormLayout.Group>
-                  ) : (
-                    ""
-                  )}
-                  {["announcement"].includes(popup_type) && (
-                    <FormLayout.Group>
-                      <TextField
-                        label={"Button"}
-                        value={button}
-                        // onChange={(v) => handleChange("button", v)}
-                      />
-                      <TextField
-                        label={"Button link"}
-                        value={button_url}
-                        placeholder={"https://"}
-                        // onChange={(v) => handleChange("button_url", v)}
-                      />
-                    </FormLayout.Group>
-                  )}
-                </FormLayout>
-              </LegacyCard.Section>
-            </LegacyCard>
-            <LegacyCard title="Colors & Image" sectioned>
-              <p>
-                Use to follow a normal section with a secondary section to
-                create a 2/3 + 1/3 layout on detail pages (such as individual
-                product or order pages)
-              </p>
+                </FormLayout.Group>
+              </FormLayout>
             </LegacyCard>
           </LegacyCard>
+
+          <PopupTemplate handleSave={handleSave} />
+
         </Layout.Section>
-        <Layout.Section>
-          <LegacyCard title="Preview" sectioned>
-            <p>Add tags to your order.</p>
+        <LayoutSection isStuck>
+          <LegacyCard title={"Preview"}>
+            <LegacyCard.Section>
+              <PreviewPopup />
+            </LegacyCard.Section>
           </LegacyCard>
-        </Layout.Section>
+          <PageActions
+            primaryAction={{
+              content: "Save",
+              loading: saving,
+              onAction: () => handleSave(),
+            }}
+          />
+        </LayoutSection>
       </Layout>
     </Page>
   ) : (

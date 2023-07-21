@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ShopifyAPI from "../helpers/shopifyApi";
 import slugify from "slugify";
 import { DeleteMajor } from "@shopify/polaris-icons";
-import { showToast } from './../plugins/toast';
+import { showToast } from "./../plugins/toast";
 
 const Picker = styled.div`
   .picker-wrapper {

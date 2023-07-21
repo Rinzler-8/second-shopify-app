@@ -11,7 +11,7 @@ import express from "express";
 import shopify from "../shopify.js";
 import { PopupDB } from "../db.js";
 import {
-  getQrCodeOr404,
+  getPopupOr404,
   getShopUrlFromSession,
 } from "../helpers/popups.js";
 
@@ -98,7 +98,7 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.patch("/api/popup/:id", async (req, res) => {
-    const qrcode = await getQrCodeOr404(req, res);
+    const qrcode = await getPopupOr404(req, res);
 
     if (qrcode) {
       try {
@@ -128,7 +128,7 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.get("/api/popup/:id", async (req, res) => {
-    const qrcode = await getQrCodeOr404(req, res);
+    const qrcode = await getPopupOr404(req, res);
 
     if (qrcode) {
       const formattedQrCode = await formatQrCodeResponse(req, res, [qrcode]);
@@ -137,7 +137,7 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.delete("/api/popup/:id", async (req, res) => {
-    const qrcode = await getQrCodeOr404(req, res);
+    const qrcode = await getPopupOr404(req, res);
 
     if (qrcode) {
       await PopupDB.delete(req.params.id);

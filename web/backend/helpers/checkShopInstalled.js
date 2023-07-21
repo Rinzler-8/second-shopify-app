@@ -1,4 +1,4 @@
-import { ShopInfoDB } from "../db.js";
+import { PopupDB, ShopInfoDB } from "../db.js";
 import shopify from "../shopify.js";
 
 export const checkShopInstalled = async (req, res, next) => {
@@ -18,6 +18,20 @@ export const checkShopInstalled = async (req, res, next) => {
 
     const { name, email: owner, country, phone } = shopConfig.data[0];
 
+    const popupInfo = {
+      shopDomain: shop,
+      title: "Don't want to miss anything?",
+      description:
+        "Be the first to see new arrivals, exclusive deals and much more.",
+      button: "Subscribe",
+      button_url: "",
+      popup_bg: "#ffffff",
+      text_color: "#000",
+      button_color: "#000",
+      image:
+        "https://cdn.shopify.com/s/files/1/0572/5958/9809/files/popup-image.jpg",
+    };
+
     const shopInfo = {
       shopDomain: shop,
       name,
@@ -31,8 +45,10 @@ export const checkShopInstalled = async (req, res, next) => {
     //count
     if (!shopExists) {
       await ShopInfoDB.create(shopInfo);
+      await PopupDB.create(popupInfo);
     } else {
       await ShopInfoDB.update(shop, shopInfo);
+      await PopupDB.update(shop, popupInfo);
     }
 
     await next();

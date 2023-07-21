@@ -35,29 +35,7 @@
     bottom: 0;
     background: rgba(0,0,0,.8);
   }
-  .coupon {
-    border: 2px dashed #ccc;
-    display: inline-block;
-    background: #F3F3F3;
-    height: 45px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #000;
-    letter-spacing: 5px;
-    line-height: 24px;
-    border-radius: 5px;
-    width: 100%;
-    text-align: center;
-  }
-  .coupon-box {
-    .submit {
-      height: 45px;
-      line-height: 24px;
-      margin: 0 0 0 10px;
-      padding: 0 2rem;
-      width: auto !important;
-    }
-  }
+  
   .form {
     margin-top: 2rem;
   }

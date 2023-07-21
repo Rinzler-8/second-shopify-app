@@ -26,7 +26,7 @@ const ImageSelect = ({
   options,
   label,
   imgWidth = "100%",
-  columns = 3,
+  columns = 2,
   hideLabel = false,
 }) => {
   return (

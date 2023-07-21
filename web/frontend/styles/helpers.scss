@@ -1,0 +1,139 @@
+.flex {
+  display: flex;
+
+  &-col {
+    flex-direction: column;
+  }
+  &-row {
+    flex-direction: row;
+  }
+
+  &-shrink-0 {
+    flex: 0;
+  }
+  &-1 {
+    flex: 1;
+  }
+}
+.justify {
+  &-center {
+    justify-content: center;
+  }
+  &-start {
+    justify-content: flex-start;
+  }
+  &-end {
+    justify-content: flex-end;
+  }
+  &-between {
+    justify-content: space-between;
+  }
+}
+.items {
+  &-center {
+    align-items: center;
+  }
+  &-start {
+    align-items: flex-start;
+  }
+  &-end {
+    align-items: flex-end;
+  }
+}
+
+
+.bg {
+  &-white {
+    background-color: #fff;
+  }
+  &-black {
+    background-color: #000;
+  }
+}
+
+.text {
+  &-black {
+    color: #000;
+  }
+  &-white {
+    color: #fff;
+  }
+}
+
+.rounded {
+  border-radius: 3px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.text {
+  &-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  &-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+  &-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  &-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  &-2\.5xl {
+    font-size: 1.75rem;
+    line-height: 2.05rem;
+  }
+  &-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  &-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+  &-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.fond-bold {
+  font-weight: 700;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}

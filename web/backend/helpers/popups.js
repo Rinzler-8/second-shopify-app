@@ -8,7 +8,7 @@ import { PopupDB } from "../db.js";
   This data is also queried so that the full state can be saved to the database, in order to generate QR code links.
 */
 
-export async function getQrCodeOr404(req, res, checkDomain = true) {
+export async function getPopupOr404(req, res, checkDomain = true) {
   try {
     const response = await PopupDB.read(req.params.id);
     if (

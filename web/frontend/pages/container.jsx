@@ -1,4 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
+
+
 export const titles = {
   collect_lead: "Don't want to miss anything?",
   give_coupon: "Special offer",
@@ -41,22 +43,8 @@ export const initialState = {
   popup_bg: "#ffffff",
   text_color: "#000",
   button_color: "#000",
-  teaser_color: "#DA3F3F",
-  coupon: "10_OFF",
-  teaser_title: "Get a discount",
-  teaser_position: "bottom_left",
-  teaser_activate: true,
-  teaser_when: "after",
-  email_placeholder: "Enter your email",
-  show_on_mobile: true,
   auto_apply: true,
-  save_to: ["foxkit_subscribers"],
   platforms: [],
-  trigger: "after_specific_time", // after_scroll, exit_intent
-  delay_show: 5, // seconds
-  auto_trigger: true,
-  repeat_open: "every_day", // days
-  display_on: "all_pages", // home_only, collection_only, product_only, cart_only
   image:
     "https://cdn.shopify.com/s/files/1/0572/5958/9809/files/popup-image.jpg",
   template: "template-1",
