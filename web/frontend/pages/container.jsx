@@ -1,6 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
 
-
 export const titles = {
   collect_lead: "Don't want to miss anything?",
   give_coupon: "Special offer",

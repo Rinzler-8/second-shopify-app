@@ -1,7 +1,7 @@
 import axios from "../plugins/axios";
 import { showToast } from "../plugins/toast";
 
-const ROOT_API = "/api/plugin";
+const ROOT_API = "/api/";
 
 const create = (url, state) => {
   return new Promise((resolve, reject) => {

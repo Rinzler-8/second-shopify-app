@@ -48,7 +48,7 @@ export const checkShopInstalled = async (req, res, next) => {
       await PopupDB.create(popupInfo);
     } else {
       await ShopInfoDB.update(shop, shopInfo);
-      await PopupDB.update(shop, popupInfo);
+      await PopupDB.updateDomain(shop, popupInfo);
     }
 
     await next();

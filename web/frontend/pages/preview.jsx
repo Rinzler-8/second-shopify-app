@@ -9,9 +9,11 @@ const Preview = styled.div`
   width: 100%;
   min-height: 500px;
   padding: 80px 50px 150px 50px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   .popup-overlay {
     background: rgba(0, 0, 0, 0.3);
     top: 0;

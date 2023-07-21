@@ -145,7 +145,7 @@ export const PopupDB = {
     return shop;
   },
 
-  update: async function (
+  updateDomain: async function (
     shopDomain,
     {
       title,
@@ -161,6 +161,39 @@ export const PopupDB = {
     await this.ready;
 
     const query = { shopDomain };
+    const updateDocument = {
+      $set: {
+        title,
+        description,
+        button,
+        button_url,
+        popup_bg,
+        text_color,
+        button_color,
+        image,
+      },
+    };
+
+    await this.popupCollection.updateOne(query, updateDocument);
+    return true;
+  },
+
+  update: async function (
+    id,
+    {
+      title,
+      description,
+      button,
+      button_url,
+      popup_bg,
+      text_color,
+      button_color,
+      image,
+    }
+  ) {
+    await this.ready;
+
+    const query = { _id: new ObjectId(id) };
     const updateDocument = {
       $set: {
         title,
