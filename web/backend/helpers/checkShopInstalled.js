@@ -19,7 +19,7 @@ export const checkShopInstalled = async (req, res, next) => {
     const { name, email: owner, country, phone } = shopConfig.data[0];
 
     const popupInfo = {
-      shopDomain: shop,
+      shopDomain: `https://${shop}`,
       title: "Don't want to miss anything?",
       description:
         "Be the first to see new arrivals, exclusive deals and much more.",
@@ -30,6 +30,7 @@ export const checkShopInstalled = async (req, res, next) => {
       button_color: "#000",
       image:
         "https://cdn.shopify.com/s/files/1/0572/5958/9809/files/popup-image.jpg",
+      deleted: false,
     };
 
     const shopInfo = {

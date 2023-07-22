@@ -51,15 +51,12 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.patch("/api/popup/:id", async (req, res) => {
-    const qrcode = await getPopupOr404(req, res);
-
-    if (qrcode) {
+    const popup = await getPopupOr404(req, res);
+    console.log("req.body ", req.body);
+    if (popup) {
       try {
-        await PopupDB.update(req.params.id, await parseQrCodeBody(req));
-        const response = await formatQrCodeResponse(req, res, [
-          await PopupDB.read(req.params.id),
-        ]);
-        res.status(200).send(response[0]);
+        const response = await PopupDB.update(req.params.id, req);
+        res.status(200).send(response);
       } catch (error) {
         res.status(500).send(error.message);
       }
@@ -80,18 +77,18 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.get("/api/popup/:id", async (req, res) => {
-    const qrcode = await getPopupOr404(req, res);
+    const popup = await getPopupOr404(req, res);
 
-    if (qrcode) {
-      const formattedQrCode = await formatQrCodeResponse(req, res, [qrcode]);
+    if (popup) {
+      const formattedQrCode = await formatQrCodeResponse(req, res, [popup]);
       res.status(200).send(formattedQrCode[0]);
     }
   });
 
   app.delete("/api/popup/:id", async (req, res) => {
-    const qrcode = await getPopupOr404(req, res);
+    const popup = await getPopupOr404(req, res);
 
-    if (qrcode) {
+    if (popup) {
       await PopupDB.delete(req.params.id);
       res.status(200).send();
     }

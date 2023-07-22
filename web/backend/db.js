@@ -115,6 +115,7 @@ export const PopupDB = {
     text_color,
     button_color,
     image,
+    deleted,
   }) {
     await this.ready;
 
@@ -128,11 +129,21 @@ export const PopupDB = {
       text_color,
       button_color,
       image,
+      deleted,
       createdAt: new Date(),
     };
 
     const result = await this.popupCollection.insertOne(document);
     return result.insertedId;
+  },
+
+  read: async function (id) {
+    await this.ready;
+
+    const query = { _id: new ObjectId(id) };
+    const shop = await this.popupCollection.findOne(query);
+
+    return shop;
   },
 
   readDomain: async function (shopDomain) {
@@ -155,6 +166,7 @@ export const PopupDB = {
       text_color,
       button_color,
       image,
+      deleted,
     }
   ) {
     await this.ready;
@@ -170,6 +182,7 @@ export const PopupDB = {
         text_color,
         button_color,
         image,
+        deleted,
       },
     };
 
@@ -188,6 +201,7 @@ export const PopupDB = {
       text_color,
       button_color,
       image,
+      deleted,
     }
   ) {
     await this.ready;
@@ -203,9 +217,9 @@ export const PopupDB = {
         text_color,
         button_color,
         image,
+        deleted,
       },
     };
-
     await this.popupCollection.updateOne(query, updateDocument);
     return true;
   },
@@ -213,7 +227,6 @@ export const PopupDB = {
   list: async function (shopDomain) {
     const query = { shopDomain };
     const results = await this.popupCollection.find(query).toArray();
-    console.log("results ", results);
     return results;
   },
 
