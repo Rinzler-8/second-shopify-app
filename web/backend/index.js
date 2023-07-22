@@ -34,10 +34,18 @@ app.get(
 app.get(
   shopify.config.auth.callbackPath,
   shopify.auth.callback(),
+  (req, res, next) => {
+    console.log("begin callback");
+    next();
+  },
   shopify.redirectToShopifyOrAppRoot()
 );
 app.post(
   shopify.config.webhooks.path,
+  (req, res, next) => {
+    console.log("process webhooks");
+    next();
+  },
   shopify.processWebhooks({ webhookHandlers: GDPRWebhookHandlers })
 );
 

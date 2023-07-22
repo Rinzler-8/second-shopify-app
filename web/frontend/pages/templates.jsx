@@ -41,13 +41,13 @@ const PopupTemplate = ({ handleSave }) => {
   };
 
   const handleGetTheme = async () => {
-    await ShopifyAPI.getPublicTheme()
-      .then((response) => {
-        if (response.ok) {
-          setThemeId(response?.payload?.id);
-        }
-      })
-      .catch();
+    // await ShopifyAPI.getPublicTheme()
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       setThemeId(response?.payload?.id);
+    //     }
+    //   })
+    //   .catch();
   };
 
   return (

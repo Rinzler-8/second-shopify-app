@@ -4,7 +4,6 @@
 
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
-import shopify from "./shopify.js";
 
 const uri = "mongodb://localhost:27017"; // Replace with your MongoDB URI
 const client = new MongoClient(uri);
@@ -212,11 +211,9 @@ export const PopupDB = {
   },
 
   list: async function (shopDomain) {
-    await this.ready;
-
     const query = { shopDomain };
     const results = await this.popupCollection.find(query).toArray();
-
+    console.log("results ", results);
     return results;
   },
 

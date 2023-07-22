@@ -16,7 +16,9 @@ import RichText from "./../components/richtext";
 import PopupTemplate from "./templates";
 import LayoutSection from "./../modules/layoutSection";
 import PreviewPopup from "./preview";
-import API from "./../helpers/api";
+// import API from "./../helpers/api";
+import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
+import { useAppQuery } from "./../hooks/useAppQuery";
 
 const Popup = () => {
   return (
@@ -27,6 +29,7 @@ const Popup = () => {
 };
 
 const PopupView = () => {
+  const fetch = useAuthenticatedFetch();
   const [activeModalIntegration, setActiveModalIntegration] = useState(false);
   const [error, setError] = useState(false);
   const [ready, setReady] = useState(true);
@@ -43,22 +46,25 @@ const PopupView = () => {
     () => setActiveModal(!activeModal),
     [activeModal]
   );
-  const {
-    active,
-    title,
-    description,
-    button,
-    save_to,
-    button_url,
-    platforms,
-  } = state;
+  const { active, title, description, button, save_to, button_url } = state;
 
+  // const {
+  //   data: popup,
+  //   isLoading,
+  //   isRefetching,
+  // } = useAppQuery({
+  //   url: "/api/popup",
+  // });
+  // console.log("popup ", popup);
 
   useEffect(() => {
     let result;
     const fetchData = async () => {
       try {
-        result = await API.getList("popup", {}, source.token);
+        result = await fetch("api/popup", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
         if (result && result.ok) {
           dispatch({ type: "setData", payload: result.payload });
           if (result.payload) {
@@ -74,26 +80,26 @@ const PopupView = () => {
     return () => source.cancel();
   }, []);
 
-  const handleSave = async (data = {}) => {
-    setError(!save_to.length && !platforms.length);
-    setSaving(true);
-    const saveData = { ...state, ...data };
-    dispatch({ type: "setData", payload: saveData });
-    delete saveData["updatedAt"];
-    API.updateByShop("popup", saveData)
-      .then((res) => {
-        if (res.ok) {
-          setPrevState({
-            ...prevState,
-            ...res.payload,
-          });
-          return showToast({
-            message: "Updated successfully",
-          });
-        }
-      })
-      .finally(() => setSaving(false));
-  };
+  // const handleSave = async (data = {}) => {
+  //   setError(!save_to.length && !platforms.length);
+  //   setSaving(true);
+  //   const saveData = { ...state, ...data };
+  //   dispatch({ type: "setData", payload: saveData });
+  //   delete saveData["updatedAt"];
+  //   API.updateByShop("popup", saveData)
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         setPrevState({
+  //           ...prevState,
+  //           ...res.payload,
+  //         });
+  //         return showToast({
+  //           message: "Updated successfully",
+  //         });
+  //       }
+  //     })
+  //     .finally(() => setSaving(false));
+  // };
   const handleChange = (key, value) => {
     dispatch({ type: "setData", payload: { [key]: value } });
   };
@@ -146,8 +152,8 @@ const PopupView = () => {
             </LegacyCard>
           </LegacyCard>
 
-          <PopupTemplate handleSave={handleSave} />
-
+          {/* <PopupTemplate handleSave={handleSave} /> */}
+          <PopupTemplate />
         </Layout.Section>
         <LayoutSection isStuck>
           <LegacyCard title={"Preview"}>
@@ -159,7 +165,7 @@ const PopupView = () => {
             primaryAction={{
               content: "Save",
               loading: saving,
-              onAction: () => handleSave(),
+              // onAction: () => handleSave(),
             }}
           />
         </LayoutSection>

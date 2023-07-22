@@ -45,7 +45,6 @@ const ImagePicker = ({
   const [file, setFile] = useState();
   const [loading, setLoading] = useState(false);
 
-  console.log(themeId, "themeId");
 
   const handleUpload = async (file) => {
     const reader = new FileReader();
@@ -59,7 +58,6 @@ const ImagePicker = ({
         });
       }
       setLoading(true);
-      console.log(themeId, "themeId");
       await ShopifyAPI.uploadAsset({
         theme_id: themeId,
         asset: {

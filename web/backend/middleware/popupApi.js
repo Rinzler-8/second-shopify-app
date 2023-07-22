@@ -10,51 +10,12 @@ import express from "express";
 
 import shopify from "../shopify.js";
 import { PopupDB } from "../db.js";
-import {
-  getPopupOr404,
-  getShopUrlFromSession,
-} from "../helpers/popups.js";
+import { getPopupOr404, getShopUrlFromSession } from "../helpers/popups.js";
 
 const SHOP_DATA_QUERY = `
   query shopData($first: Int!) {
     shop {
       url
-    }
-    codeDiscountNodes(first: $first) {
-      edges {
-        node {
-          id
-          codeDiscount {
-            ... on DiscountCodeBasic {
-              codes(first: 1) {
-                edges {
-                  node {
-                    code
-                  }
-                }
-              }
-            }
-            ... on DiscountCodeBxgy {
-              codes(first: 1) {
-                edges {
-                  node {
-                    code
-                  }
-                }
-              }
-            }
-            ... on DiscountCodeFreeShipping {
-              codes(first: 1) {
-                edges {
-                  node {
-                    code
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
     }
   }
 `;
@@ -81,20 +42,12 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.post("/api/popup", async (req, res) => {
-    // try {
-    //   const id = await PopupDB.create({
-    //     ...(await parseQrCodeBody(req)),
-
-    //     /* Get the shop from the authorization header to prevent users from spoofing the data */
-    //     shopDomain: await getShopUrlFromSession(req, res),
-    //   });
-    //   const response = await formatQrCodeResponse(req, res, [
-    //     await PopupDB.read(id),
-    //   ]);
-    //   res.status(201).send(response[0]);
-    // } catch (error) {
-    //   res.status(500).send(error.message);
-    // }
+    try {
+      const response = await PopupDB.create(req);
+      res.status(201).send(response);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
   });
 
   app.patch("/api/popup/:id", async (req, res) => {
@@ -114,17 +67,16 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.get("/api/popup", async (req, res) => {
-    // try {
-    //   const rawCodeData = await PopupDB.list(
-    //     await getShopUrlFromSession(req, res)
-    //   );
+    try {
+      const rawCodeData = await PopupDB.list(
+        await getShopUrlFromSession(req, res)
+      );
 
-    //   const response = await formatQrCodeResponse(req, res, rawCodeData);
-    //   res.status(200).send(response);
-    // } catch (error) {
-    //   console.error(error);
-    //   res.status(500).send(error.message);
-    // }
+      res.status(200).send(rawCodeData);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+    }
   });
 
   app.get("/api/popup/:id", async (req, res) => {
