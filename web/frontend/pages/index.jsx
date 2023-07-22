@@ -84,13 +84,13 @@ const PopupView = () => {
     setSaving(true);
     const saveData = { ...state, ...data };
     dispatch({ type: "setData", payload: saveData });
-    console.log("saveData ", JSON.stringify(saveData));
     delete saveData["updatedAt"];
-    await fetch(`api/popup/64bb47c65c1c2158ab073e17`, {
+    await fetch(`api/popup/64bb5624f56a8fc5c2d84b73`, {
       method: "PATCH",
       body: JSON.stringify(saveData),
+      headers: { "Content-Type": "application/json" },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (res.ok) {
           setPrevState({
             ...prevState,

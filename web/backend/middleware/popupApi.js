@@ -10,7 +10,11 @@ import express from "express";
 
 import shopify from "../shopify.js";
 import { PopupDB } from "../db.js";
-import { getPopupOr404, getShopUrlFromSession } from "../helpers/popups.js";
+import {
+  getPopupOr404,
+  getShopUrlFromSession,
+  parseQrCodeBody,
+} from "../helpers/popups.js";
 
 const SHOP_DATA_QUERY = `
   query shopData($first: Int!) {
@@ -52,10 +56,11 @@ export default function applyQrCodeApiEndpoints(app) {
 
   app.patch("/api/popup/:id", async (req, res) => {
     const popup = await getPopupOr404(req, res);
-    console.log("req.body ", req.body);
     if (popup) {
       try {
-        const response = await PopupDB.update(req.params.id, req);
+        await PopupDB.update(req.params.id, await parseQrCodeBody(req));
+        const response = await PopupDB.read(req.params.id);
+        console.log("req.body ", response);
         res.status(200).send(response);
       } catch (error) {
         res.status(500).send(error.message);

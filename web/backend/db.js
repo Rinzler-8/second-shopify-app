@@ -90,7 +90,7 @@ export const ShopInfoDB = {
         country,
         phone,
         owner,
-        deleted,
+        deleted: true,
       },
     };
 
