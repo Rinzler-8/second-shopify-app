@@ -5,7 +5,7 @@ import Popup1 from "../assets/popup/1.jpg";
 import Popup2 from "../assets/popup/2.jpg";
 import Popup3 from "../assets/popup/3.jpg";
 import Popup4 from "../assets/popup/4.jpg";
-import { useStore } from "./container";
+import { useStore } from "../pages/container";
 import { LegacyCard, FormLayout } from "@shopify/polaris";
 import { useEffect, useState } from "react";
 import ShopifyAPI from "./../helpers/shopifyApi";

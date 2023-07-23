@@ -27,7 +27,7 @@ export async function getPopupOr404(req, res, checkDomain = true) {
   return undefined;
 }
 
-export async function parseQrCodeBody(req, res) {
+export async function parsePopupBody(req, res) {
   return {
     title: req.body.title,
     description: req.body.description,

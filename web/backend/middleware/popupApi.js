@@ -13,7 +13,7 @@ import { PopupDB } from "../db.js";
 import {
   getPopupOr404,
   getShopUrlFromSession,
-  parseQrCodeBody,
+  parsePopupBody,
 } from "../helpers/popups.js";
 
 const SHOP_DATA_QUERY = `
@@ -56,11 +56,21 @@ export default function applyQrCodeApiEndpoints(app) {
 
   app.patch("/api/popup/:id", async (req, res) => {
     const popup = await getPopupOr404(req, res);
+    const updateData = {
+      title: req.body.title,
+      description: req.body.description,
+      button: req.body.button,
+      button_url: req.body.button_url,
+      popup_bg: req.body.popup_bg,
+      text_color: req.body.text_color,
+      button_color: req.body.button_color,
+      image: req.body.image,
+      deleted: req.body.deleted,
+    };
     if (popup) {
       try {
-        await PopupDB.update(req.params.id, await parseQrCodeBody(req));
+        await PopupDB.update(req.params.id, updateData);
         const response = await PopupDB.read(req.params.id);
-        console.log("req.body ", response);
         res.status(200).send(response);
       } catch (error) {
         res.status(500).send(error.message);

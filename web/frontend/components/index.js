@@ -1,3 +1,2 @@
-import Popup from "./../pages/index";
-export { Popup };
+export { MainPage } from "./main";
 export * from "./providers";

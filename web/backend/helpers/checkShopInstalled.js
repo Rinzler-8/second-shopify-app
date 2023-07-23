@@ -19,6 +19,7 @@ export const checkShopInstalled = async (req, res, next) => {
     const { name, email: owner, country, phone } = shopConfig.data[0];
 
     const popupInfo = {
+      active: false,
       shopDomain: `https://${shop}`,
       title: "Don't want to miss anything?",
       description:

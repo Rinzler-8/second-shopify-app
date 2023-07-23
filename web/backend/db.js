@@ -107,6 +107,7 @@ export const PopupDB = {
 
   create: async function ({
     shopDomain,
+    active,
     title,
     description,
     button,
@@ -121,6 +122,7 @@ export const PopupDB = {
 
     const document = {
       shopDomain,
+      active,
       title,
       description,
       button,
