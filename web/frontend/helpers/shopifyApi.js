@@ -1,6 +1,6 @@
 import customInstance from "../plugins/axios";
 
-const SHOPIFY_API = "/api/shopify";
+const SHOPIFY_API = "/api/";
 
 export const getProducts = (params, cancelToken) => {
   params = Object.assign(

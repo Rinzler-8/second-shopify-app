@@ -5,7 +5,7 @@ import express from "express";
 import serveStatic from "serve-static";
 
 import shopify from "./shopify.js";
-import applyQrCodeApiEndpoints from "./middleware/popupApi.js";
+import applyPopupApiEndpoints from "./middleware/popupApi.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 import { checkShopInstalled } from "./helpers/checkShopInstalled.js";
 
@@ -36,7 +36,6 @@ app.get(
   shopify.auth.callback(),
   (req, res, next) => {
     console.log("begin callback");
-    next();
   },
   shopify.redirectToShopifyOrAppRoot()
 );
@@ -56,7 +55,7 @@ app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 
-applyQrCodeApiEndpoints(app);
+applyPopupApiEndpoints(app);
 
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));

@@ -1,5 +1,4 @@
 import { createContext, useContext, useReducer } from "react";
-import { useAppQuery } from "../hooks/useAppQuery";
 
 export const initialState = (PopupData) => ({
   ...PopupData[0],
@@ -18,7 +17,7 @@ export const ContextProvider = ({ children, PopupData }) => {
       default:
         throw new Error();
     }
-  }, initialState(PopupData)); // Pass PopupData to initialState
+  }, initialState(PopupData));
 
   return (
     <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>

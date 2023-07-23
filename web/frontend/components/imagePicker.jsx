@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import { DropZone, Thumbnail, Spinner, Button } from "@shopify/polaris";
 import styled from "styled-components";
-import ShopifyAPI from "../helpers/shopifyApi";
+import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
 import slugify from "slugify";
 import { DeleteMajor } from "@shopify/polaris-icons";
 import { showToast } from "./../plugins/toast";
@@ -44,12 +44,16 @@ const ImagePicker = ({
 }) => {
   const [file, setFile] = useState();
   const [loading, setLoading] = useState(false);
-
+  const fetch = useAuthenticatedFetch();
+  let url = `/api/theme/asset`;
 
   const handleUpload = async (file) => {
     const reader = new FileReader();
     reader.onloadend = async (e) => {
       const fileData = e.target.result.split(";base64,")[1];
+      const formData = new FormData();
+      formData.append("asset[key]", `assets/${slugify(file.name)}`);
+      formData.append("asset[attachment]", file);
 
       if (fileData.length > 7000000) {
         return showToast({
@@ -58,20 +62,18 @@ const ImagePicker = ({
         });
       }
       setLoading(true);
-      await ShopifyAPI.uploadAsset({
-        theme_id: themeId,
-        asset: {
-          key: `assets/${slugify(file.name)}`,
-          attachment: fileData,
-        },
+      await fetch(url, {
+        method: "POST",
+        body: formData,
       })
         .then((response) => {
           if (response.ok) {
-            onChange(response?.payload);
+            const imageUrl = response?.payload?.asset?.public_url;
+            onChange(imageUrl);
             showToast({
               message: "Image uploaded!",
             });
-            if (typeof onSuccess === "function") onSuccess(response?.payload);
+            if (typeof onSuccess === "function") onSuccess(imageUrl);
           }
         })
         .catch((error) => console.log(error))

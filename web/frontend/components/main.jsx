@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Page,
   Layout,
@@ -7,37 +7,27 @@ import {
   Checkbox,
   TextField,
   PageActions,
-  SkeletonBodyText,
 } from "@shopify/polaris";
+import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
 import RichText from "./richtext";
 import { useStore } from "../pages/container";
 import LayoutSection from "./../modules/layoutSection";
-import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
-import { CancelToken } from "./../plugins/axios";
 import PopupTemplate from "./templates";
 import PreviewPopup from "./preview";
+import { showToast } from "./../plugins/toast";
 
 export function MainPage({ loading }) {
   const fetch = useAuthenticatedFetch();
-  const [ready, setReady] = useState(true);
   const [saving, setSaving] = useState(false);
   const { state, dispatch } = useStore();
-  const source = CancelToken.source();
-  const [activeModal, setActiveModal] = useState(false);
-  const handleModalChange = useCallback(
-    () => setActiveModal(!activeModal),
-    [activeModal]
-  );
   const { active, title, description, button, button_url } = state;
-
-  console.log("pop ", title);
 
   const handleSave = async (data = {}) => {
     setSaving(true);
     const saveData = { ...state, ...data };
     dispatch({ type: "setData", payload: saveData });
     delete saveData["updatedAt"];
-    await fetch(`api/popup/64bcb0add4947c43026f9a74`, {
+    await fetch(`api/popup/${state._id}`, {
       method: "PATCH",
       body: JSON.stringify(saveData),
       headers: { "Content-Type": "application/json" },
@@ -55,7 +45,7 @@ export function MainPage({ loading }) {
     dispatch({ type: "setData", payload: { [key]: value } });
   };
 
-  return ready ? (
+  return (
     <Page loading={loading} fullWidth>
       <Layout>
         <Layout.Section secondary>
@@ -120,7 +110,5 @@ export function MainPage({ loading }) {
         </LayoutSection>
       </Layout>
     </Page>
-  ) : (
-    <SkeletonBodyText />
   );
 }

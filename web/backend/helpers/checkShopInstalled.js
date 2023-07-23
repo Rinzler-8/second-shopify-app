@@ -31,7 +31,7 @@ export const checkShopInstalled = async (req, res, next) => {
       button_color: "#000",
       image:
         "https://cdn.shopify.com/s/files/1/0572/5958/9809/files/popup-image.jpg",
-      deleted: false,
+      template: "template-1",
     };
 
     const shopInfo = {
@@ -44,7 +44,7 @@ export const checkShopInstalled = async (req, res, next) => {
     };
 
     const shopExists = await ShopInfoDB.readDomain(shop);
-    //count
+    // or could use count
     if (!shopExists) {
       await ShopInfoDB.create(shopInfo);
       await PopupDB.create(popupInfo);

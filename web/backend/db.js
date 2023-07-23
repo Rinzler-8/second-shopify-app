@@ -116,7 +116,7 @@ export const PopupDB = {
     text_color,
     button_color,
     image,
-    deleted,
+    template
   }) {
     await this.ready;
 
@@ -131,7 +131,7 @@ export const PopupDB = {
       text_color,
       button_color,
       image,
-      deleted,
+      template,
       createdAt: new Date(),
     };
 
@@ -160,6 +160,7 @@ export const PopupDB = {
   updateDomain: async function (
     shopDomain,
     {
+      active,
       title,
       description,
       button,
@@ -168,7 +169,7 @@ export const PopupDB = {
       text_color,
       button_color,
       image,
-      deleted,
+      template
     }
   ) {
     await this.ready;
@@ -176,6 +177,7 @@ export const PopupDB = {
     const query = { shopDomain };
     const updateDocument = {
       $set: {
+        active,
         title,
         description,
         button,
@@ -184,7 +186,7 @@ export const PopupDB = {
         text_color,
         button_color,
         image,
-        deleted,
+        template
       },
     };
 
@@ -195,6 +197,7 @@ export const PopupDB = {
   update: async function (
     id,
     {
+      active,
       title,
       description,
       button,
@@ -203,7 +206,7 @@ export const PopupDB = {
       text_color,
       button_color,
       image,
-      deleted,
+      template
     }
   ) {
     await this.ready;
@@ -211,6 +214,7 @@ export const PopupDB = {
     const query = { _id: new ObjectId(id) };
     const updateDocument = {
       $set: {
+        active,
         title,
         description,
         button,
@@ -219,7 +223,7 @@ export const PopupDB = {
         text_color,
         button_color,
         image,
-        deleted,
+        template
       },
     };
     await this.popupCollection.updateOne(query, updateDocument);

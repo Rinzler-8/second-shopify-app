@@ -10,11 +10,7 @@ import express from "express";
 
 import shopify from "../shopify.js";
 import { PopupDB } from "../db.js";
-import {
-  getPopupOr404,
-  getShopUrlFromSession,
-  parsePopupBody,
-} from "../helpers/popups.js";
+import { getPopupOr404, getShopUrlFromSession } from "../helpers/popups.js";
 
 const SHOP_DATA_QUERY = `
   query shopData($first: Int!) {
@@ -24,7 +20,7 @@ const SHOP_DATA_QUERY = `
   }
 `;
 
-export default function applyQrCodeApiEndpoints(app) {
+export default function applyPopupApiEndpoints(app) {
   app.use(express.json());
 
   app.get("/api/shop-data", async (req, res) => {
@@ -46,8 +42,20 @@ export default function applyQrCodeApiEndpoints(app) {
   });
 
   app.post("/api/popup", async (req, res) => {
+    const newData = {
+      active: req.body.active,
+      title: req.body.title,
+      description: req.body.description,
+      button: req.body.button,
+      button_url: req.body.button_url,
+      popup_bg: req.body.popup_bg,
+      text_color: req.body.text_color,
+      button_color: req.body.button_color,
+      image: req.body.image,
+      template: req.body.template,
+    };
     try {
-      const response = await PopupDB.create(req);
+      const response = await PopupDB.create(newData);
       res.status(201).send(response);
     } catch (error) {
       res.status(500).send(error.message);
@@ -57,6 +65,7 @@ export default function applyQrCodeApiEndpoints(app) {
   app.patch("/api/popup/:id", async (req, res) => {
     const popup = await getPopupOr404(req, res);
     const updateData = {
+      active: req.body.active,
       title: req.body.title,
       description: req.body.description,
       button: req.body.button,
@@ -65,7 +74,7 @@ export default function applyQrCodeApiEndpoints(app) {
       text_color: req.body.text_color,
       button_color: req.body.button_color,
       image: req.body.image,
-      deleted: req.body.deleted,
+      template: req.body.template,
     };
     if (popup) {
       try {

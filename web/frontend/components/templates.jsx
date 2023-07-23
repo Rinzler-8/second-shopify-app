@@ -110,10 +110,8 @@ const PopupTemplate = ({ handleSave }) => {
             themeId={themeId}
             onChange={(v) => {
               handleChange("image", v?.public_url);
-              console.log(v, "image uploaded");
             }}
             onSuccess={(e) => {
-              console.log(e, "response?.payload success");
               handleSave({ image: e?.public_url });
             }}
             onRemove={() => {
