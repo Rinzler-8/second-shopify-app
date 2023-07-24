@@ -8,8 +8,8 @@ import Popup4 from "../assets/popup/4.jpg";
 import { useStore } from "../pages/container";
 import { LegacyCard, FormLayout } from "@shopify/polaris";
 import { useEffect, useState } from "react";
-import ShopifyAPI from "./../helpers/shopifyApi";
 import ColorPickerWithTransparent from "./../components/colorPicker";
+import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
 
 const Wrapper = styled.div`
   .item {
@@ -27,10 +27,10 @@ const Wrapper = styled.div`
 `;
 
 const PopupTemplate = ({ handleSave }) => {
+  const fetch = useAuthenticatedFetch();
   const [themeId, setThemeId] = useState("");
   const { state, dispatch } = useStore();
-  const { template, image, popup_bg, text_color, button_color } =
-    state;
+  const { template, image, popup_bg, text_color, button_color } = state;
 
   useEffect(() => {
     handleGetTheme();
@@ -41,7 +41,7 @@ const PopupTemplate = ({ handleSave }) => {
   };
 
   const handleGetTheme = async () => {
-    // await ShopifyAPI.getPublicTheme()
+    // await fetch("/api/shopify/theme/asset")
     //   .then((response) => {
     //     if (response.ok) {
     //       setThemeId(response?.payload?.id);

@@ -12,7 +12,7 @@ export default function PopupView() {
   } = useAppQuery({
     url: "/api/popup",
   });
-
+  
   const popupMarkup =
     PopupData && PopupData.length ? (
       <ContextProvider PopupData={PopupData}>

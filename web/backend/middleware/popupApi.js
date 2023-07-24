@@ -11,33 +11,50 @@ import express from "express";
 import shopify from "../shopify.js";
 import { PopupDB } from "../db.js";
 import { getPopupOr404, getShopUrlFromSession } from "../helpers/popups.js";
-
 const SHOP_DATA_QUERY = `
   query shopData($first: Int!) {
     shop {
       url
+      assets(first: $first) {
+        edges {
+          node {
+            originalSource
+          }
+        }
+      }
     }
   }
 `;
-
 export default function applyPopupApiEndpoints(app) {
   app.use(express.json());
 
-  app.get("/api/shop-data", async (req, res) => {
+  app.post("/api/shopify/theme/asset", async (req, res) => {
     const client = new shopify.api.clients.Graphql({
       session: res.locals.shopify.session,
     });
 
-    /* Fetch shop data, including all available discounts to list in the QR code form */
     const shopData = await client.query({
       data: {
-        query: SHOP_DATA_QUERY,
+        query: `mutation fileCreate($files: [FileCreateInput!]!) {
+          fileCreate(files: $files) {
+            files {
+              alt
+              createdAt
+            }
+          }
+        }`,
         variables: {
-          first: 25,
+          files: {
+            alt: "fallback text for a IMAGE",
+            contentType: "IMAGE",
+            originalSource:
+              "https://cdn.shopify.com/s/files/1/0572/5958/9809/files/popup-image.jpg",
+          },
         },
       },
     });
 
+    console.log("shopData.body.data ", shopData.body.data);
     res.send(shopData.body.data);
   });
 

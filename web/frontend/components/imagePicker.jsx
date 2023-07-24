@@ -45,15 +45,15 @@ const ImagePicker = ({
   const [file, setFile] = useState();
   const [loading, setLoading] = useState(false);
   const fetch = useAuthenticatedFetch();
-  let url = `/api/theme/asset`;
+  let url = `/api/shopify/theme/asset`;
 
   const handleUpload = async (file) => {
     const reader = new FileReader();
     reader.onloadend = async (e) => {
       const fileData = e.target.result.split(";base64,")[1];
       const formData = new FormData();
-      formData.append("asset[key]", `assets/${slugify(file.name)}`);
-      formData.append("asset[attachment]", file);
+      formData.append("key", `assets/${slugify(file.name)}`);
+      formData.append("attachment", file);
 
       if (fileData.length > 7000000) {
         return showToast({
@@ -68,12 +68,12 @@ const ImagePicker = ({
       })
         .then((response) => {
           if (response.ok) {
+            console.log("response ", response);
             const imageUrl = response?.payload?.asset?.public_url;
-            onChange(imageUrl);
-            showToast({
-              message: "Image uploaded!",
-            });
-            if (typeof onSuccess === "function") onSuccess(imageUrl);
+            if (imageUrl) {
+              onChange(imageUrl);
+              if (typeof onSuccess === "function") onSuccess(imageUrl);
+            }
           }
         })
         .catch((error) => console.log(error))
