@@ -49,7 +49,7 @@ export default function applyPopupApiEndpoints(app) {
     const responseJson =
       shopData.body.data.stagedUploadsCreate.stagedTargets[0];
 
-    res.json(responseJson); // Send the response as JSON
+    res.json(responseJson);
   });
 
   app.post("/api/shopify/create-file", async (req, res) => {

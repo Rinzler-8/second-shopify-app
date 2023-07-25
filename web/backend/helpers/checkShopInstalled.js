@@ -15,9 +15,6 @@ export const checkShopInstalled = async (req, res, next) => {
     const shopConfig = await shopify.api.rest.Shop.all({
       session: session[0],
     });
-    // const shopConfi1g = await shopify.api.clients.Graphql.all({
-    //   session: session[0],
-    // });
 
     const { name, email: owner, country, phone } = shopConfig.data[0];
 

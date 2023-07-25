@@ -60,7 +60,6 @@ const ImagePicker = ({
         mimeType: type,
         resource: "IMAGE",
         httpMethod: "POST",
-        // fileSize: size,
       }),
     });
 

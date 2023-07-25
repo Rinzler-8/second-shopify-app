@@ -7,7 +7,7 @@ import Popup3 from "../assets/popup/3.jpg";
 import Popup4 from "../assets/popup/4.jpg";
 import { useStore } from "../pages/container";
 import { LegacyCard, FormLayout } from "@shopify/polaris";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ColorPickerWithTransparent from "./../components/colorPicker";
 import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
 
@@ -27,27 +27,14 @@ const Wrapper = styled.div`
 `;
 
 const PopupTemplate = ({ handleSave }) => {
-  const fetch = useAuthenticatedFetch();
   const [themeId, setThemeId] = useState("");
   const { state, dispatch } = useStore();
   const { template, image, popup_bg, text_color, button_color } = state;
 
-  useEffect(() => {
-    handleGetTheme();
-  }, []);
-
   const handleChange = (key, value) => {
+    console.log("image ", image);
+    console.log("value ", value);
     dispatch({ type: "setData", payload: { [key]: value } });
-  };
-
-  const handleGetTheme = async () => {
-    // await fetch("/api/shopify/theme/asset")
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       setThemeId(response?.payload?.id);
-    //     }
-    //   })
-    //   .catch();
   };
 
   return (
@@ -109,10 +96,10 @@ const PopupTemplate = ({ handleSave }) => {
             value={image}
             themeId={themeId}
             onChange={(v) => {
-              handleChange("image", v?.public_url);
+              handleChange("image", v);
             }}
             onSuccess={(e) => {
-              handleSave({ image: e?.public_url });
+              handleSave({ image: e });
             }}
             onRemove={() => {
               handleChange("image", "");
