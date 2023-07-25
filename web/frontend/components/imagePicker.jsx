@@ -5,6 +5,7 @@ import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
 import slugify from "slugify";
 import { DeleteMajor } from "@shopify/polaris-icons";
 import { showToast } from "./../plugins/toast";
+import axios from "axios";
 
 const Picker = styled.div`
   .picker-wrapper {
@@ -45,31 +46,101 @@ const ImagePicker = ({
   const [file, setFile] = useState();
   const [loading, setLoading] = useState(false);
   const fetch = useAuthenticatedFetch();
-  let url = `/api/shopify/theme/asset`;
+
+  const generateStagedUploads = async (acceptedFiles) => {
+    const { name, type } = acceptedFiles;
+
+    const response = await fetch("/api/shopify/generate-uploads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        filename: name,
+        mimeType: type,
+        resource: "IMAGE",
+        httpMethod: "POST",
+        // fileSize: size,
+      }),
+    });
+
+    return response.json();
+  };
+
+  const createFileService = async ({ alt, resourceUrl, contentType }) => {
+    const response = await fetch("/api/shopify/create-file", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        alt: alt,
+        resourceUrl: resourceUrl,
+        contentType: contentType,
+      }),
+    });
+
+    return response.json();
+  };
+  const getFileByIdService = async ({ fileId }) => {
+    const response = await fetch(`/api/shopify/get-file`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: fileId,
+      }),
+    });
+
+    return response.json();
+  };
+
+  const updateFileService = async ({ imageId, altText }) => {
+    const response = await fetch("/api/shopify/update-file", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: imageId,
+        alt: altText,
+      }),
+    });
+
+    return response.json();
+  };
 
   const handleUpload = async (file) => {
     const reader = new FileReader();
     reader.onloadend = async (e) => {
-      const fileData = e.target.result.split(";base64,")[1];
+      const uploadData = await generateStagedUploads(file);
+      const { url, parameters, resourceUrl } = uploadData;
       const formData = new FormData();
-      formData.append("key", `assets/${slugify(file.name)}`);
-      formData.append("attachment", file);
-
-      if (fileData.length > 7000000) {
-        return showToast({
-          message: "File size too large, please upload file less than 5mb",
-          error: true,
-        });
-      }
+      parameters.forEach(({ name, value }) => {
+        formData.append(name, value);
+      });
+      formData.append("file", file);
       setLoading(true);
-      await fetch(url, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log("response ", response);
-            const imageUrl = response?.payload?.asset?.public_url;
+
+      await axios
+        .post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+
+        .then(async (response) => {
+          const fileCreated = await createFileService({
+            alt: file.alt,
+            resourceUrl,
+            contentType: "IMAGE",
+          });
+          const fileId = fileCreated.id;
+          const fileData = await getFileByIdService({ fileId });
+
+          if (response) {
+            const imageUrl = fileData?.image?.originalSrc;
             if (imageUrl) {
               onChange(imageUrl);
               if (typeof onSuccess === "function") onSuccess(imageUrl);

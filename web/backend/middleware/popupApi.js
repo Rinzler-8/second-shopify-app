@@ -11,51 +11,189 @@ import express from "express";
 import shopify from "../shopify.js";
 import { PopupDB } from "../db.js";
 import { getPopupOr404, getShopUrlFromSession } from "../helpers/popups.js";
-const SHOP_DATA_QUERY = `
-  query shopData($first: Int!) {
-    shop {
-      url
-      assets(first: $first) {
-        edges {
-          node {
-            originalSource
-          }
-        }
-      }
-    }
-  }
-`;
+
 export default function applyPopupApiEndpoints(app) {
   app.use(express.json());
 
-  app.post("/api/shopify/theme/asset", async (req, res) => {
+  app.post("/api/shopify/generate-uploads", async (req, res) => {
+    const client = new shopify.api.clients.Graphql({
+      session: res.locals.shopify.session,
+    });
+    const shopData = await client.query({
+      data: {
+        query: `mutation stagedUploadsCreate($input: [StagedUploadInput!]!) {
+          stagedUploadsCreate(input: $input) {
+            stagedTargets {
+              url
+              resourceUrl
+              parameters {
+                name
+                value
+              }
+            }
+          }
+        }`,
+        variables: {
+          input: [
+            {
+              filename: req.body.filename,
+              mimeType: req.body.mimeType,
+              httpMethod: "POST",
+              resource: "IMAGE",
+            },
+          ],
+        },
+      },
+    });
+
+    const responseJson =
+      shopData.body.data.stagedUploadsCreate.stagedTargets[0];
+
+    res.json(responseJson); // Send the response as JSON
+  });
+
+  app.post("/api/shopify/create-file", async (req, res) => {
     const client = new shopify.api.clients.Graphql({
       session: res.locals.shopify.session,
     });
 
     const shopData = await client.query({
       data: {
-        query: `mutation fileCreate($files: [FileCreateInput!]!) {
+        query: `
+        mutation fileCreate($files: [FileCreateInput!]!) {
           fileCreate(files: $files) {
             files {
-              alt
-              createdAt
+              ... on MediaImage {
+                alt
+                createdAt
+                id
+                preview {
+                  image {
+                    originalSrc
+                  }
+                }
+                status
+              }
+              ... on GenericFile {
+                id
+                alt
+                createdAt
+                fileStatus
+                mimeType
+                url
+              }
+            }
+            userErrors {
+              field
+              message
             }
           }
-        }`,
+        }
+      `,
         variables: {
           files: {
-            alt: "fallback text for a IMAGE",
-            contentType: "IMAGE",
-            originalSource:
-              "https://cdn.shopify.com/s/files/1/0572/5958/9809/files/popup-image.jpg",
+            alt: req.body.alt,
+            contentType: req.body.contentType,
+            originalSource: req.body.resourceUrl,
           },
         },
       },
     });
 
-    console.log("shopData.body.data ", shopData.body.data);
-    res.send(shopData.body.data);
+    res.send(shopData.body.data.fileCreate.files[0]);
+  });
+
+  app.post("/api/shopify/get-file", async (req, res) => {
+    const client = new shopify.api.clients.Graphql({
+      session: res.locals.shopify.session,
+    });
+
+    let result = await client.query({
+      data: {
+        query: `
+        query getImageById($id: ID!) {
+          node(id: $id) {
+            ... on MediaImage {
+              alt
+              createdAt
+              status
+              image {
+                originalSrc
+                width
+                height
+              }
+              id
+            }
+          }
+        }
+      `,
+        variables: {
+          id: req.body.id,
+        },
+      },
+    });
+
+    const promise = new Promise((resolve) => {
+      const interval = setInterval(async () => {
+        if (result?.body?.data?.node?.status === "FAILED") resolve(undefined);
+        else if (
+          result?.body?.data?.node?.status === "READY" ||
+          result?.body?.data?.node?.fileStatus === "READY"
+        ) {
+          clearInterval(interval);
+          resolve(result?.body?.data?.node);
+        }
+      }, 250 * 4);
+    });
+    promise
+      .then((imageUrl) => {
+        res.send(imageUrl);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        res.status(500).send("An error occurred");
+      });
+  });
+
+  app.post("/api/shopify/update-file", async (req, res) => {
+    const client = new shopify.api.clients.Graphql({
+      session: res.locals.shopify.session,
+    });
+
+    const shopData = await client.query({
+      data: {
+        query: `
+         mutation fileUpdate($input: [FileUpdateInput!]!) {
+          fileUpdate(files: $input) {
+            files {
+              alt
+              ... on MediaImage {
+                id
+                preview {
+                  image {
+                    originalSrc
+                  }
+                }
+                status
+              }
+            }
+            userErrors {
+              field
+              message
+            }
+          }
+        }
+      `,
+        variables: {
+          files: {
+            id: req.body.imageId,
+            alt: req.body.altText,
+          },
+        },
+      },
+    });
+
+    res.send(shopData.body.data.fileCreate.files[0]);
   });
 
   app.post("/api/popup", async (req, res) => {
