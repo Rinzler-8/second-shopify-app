@@ -1,8 +1,49 @@
-<!--foxify_page_head-->
+{% liquid
+	assign title = shop.metafields.sabbath.title.value
+	assign description = shop.metafields.sabbath.description.value
+	assign button = shop.metafields.sabbath.button.value
+	assign button_url = shop.metafields.sabbath.button_url.value
+	assign popup_bg = shop.metafields.sabbath.popup_bg.value
+	assign text_color = shop.metafields.sabbath.text_color.value
+	assign button_color = shop.metafields.sabbath.button_color.value
+	assign image = shop.metafields.sabbath.image.value
+	assign template = shop.metafields.sabbath.template.value
 
-{{ 'popup.css' | asset_url | stylesheet_tag }}
+%}
+
+<script id="foxify-app-settings">
+  window.Foxify = window.Foxify || {}
+
+  Foxify.Settings = {
+  		title: {{ request.design_mode | json }},
+
+  description: {{ shop.secure_url | json }},
+
+  button: "{{ template.name }}",
+
+  button_url: {{ shop.currency | json }},
+
+  popup_bg: {{ shop.secure_url | json }},
+
+  text_color:{{ shop.secure_url | json }},
+
+  button_color:{{ button_color | json }},
+
+  image:{{ image | json }},
+
+  template:{{ template | json }},
+
+  }
+</script>
+
+<link
+  rel="preconnect"
+  href="https://burst.shopifycdn.com"
+  crossorigin>
+
+
 <script src="{{ 'sabbath-popup.js' | asset_url }}" defer></script>
+{{ 'popup.css' | asset_url | stylesheet_tag }}
 
-<div id="popup-container"></div></div>
 
-<!--foxify_page_head-->
+<div id="popup-container" />

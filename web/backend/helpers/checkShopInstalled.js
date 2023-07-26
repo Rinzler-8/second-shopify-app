@@ -1,5 +1,27 @@
+import { createOrUpdateShopifyMetafield } from "../services/metafield.mjs";
 import { PopupDB, ShopInfoDB } from "../db.js";
 import shopify from "../shopify.js";
+import { FILE_KEY } from "../configs/env.mjs";
+
+const initMetafield = async ({ session, shopDomain }) => {
+  const shopData = await PopupDB.readDomain(shopDomain);
+
+  const promises = [];
+
+  promises.push(async () => {
+    let themeSettings = shopData;
+    await createOrUpdateShopifyMetafield({
+      key: "popup",
+      session,
+      value: JSON.stringify(themeSettings),
+      namespace: FILE_KEY,
+      type: "json",
+    });
+  });
+  console.log("promises ", promises);
+
+  return promises;
+};
 
 export const checkShopInstalled = async (req, res, next) => {
   try {
@@ -52,6 +74,7 @@ export const checkShopInstalled = async (req, res, next) => {
       await PopupDB.updateDomain(shop, popupInfo);
     }
 
+    await initMetafield({ session, shopDomain: `https://${shop}` });
     await next();
   } catch (error) {
     next(error);

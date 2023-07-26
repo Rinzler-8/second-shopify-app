@@ -1,5 +1,5 @@
 import { DeliveryMethod } from "@shopify/shopify-api";
-import { ShopInfoDB } from "./db.js";
+import { ShopInfoDB } from "../db.js";
 /**
  * @type {{[key: string]: import("@shopify/shopify-api").WebhookHandler}}
  */

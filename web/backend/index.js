@@ -6,7 +6,7 @@ import serveStatic from "serve-static";
 
 import shopify from "./shopify.js";
 import applyPopupApiEndpoints from "./middleware/popupApi.js";
-import GDPRWebhookHandlers from "./gdpr.js";
+import GDPRWebhookHandlers from "./configs/gdpr.js";
 import { checkShopInstalled } from "./helpers/checkShopInstalled.js";
 
 const PORT = parseInt(
