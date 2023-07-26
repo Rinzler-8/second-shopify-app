@@ -1,0 +1,148 @@
+.popup {
+  width: 420px;
+}
+
+.popup-inner {
+  z-index: 1;
+  border-radius: 5px;
+
+  img {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+  }
+}
+
+.popup-content {
+  padding: 2.5rem;
+}
+
+.close {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  background: #fff;
+  z-index: 1;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+
+  .Polaris-Icon {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.form {
+  margin-top: 2rem;
+}
+
+h3 {
+  margin-bottom: 1.25rem;
+  font-weight: bold;
+}
+
+.submit {
+  padding: 1.5rem 2rem;
+  box-shadow: none;
+  border: 1px solid #000;
+  margin-top: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.input {
+  padding: 1.5rem 2rem;
+  border: 1px solid #ccc;
+}
+
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.template-1 {
+  width: 420px;
+
+  .popup-inner {
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+  }
+
+  .submit {
+    width: 100%;
+  }
+}
+
+.template-4,
+.template-2 {
+  .form {
+    display: flex;
+    align-items: center;
+
+    .submit {
+      margin: 0 0 0 -2px !important;
+    }
+  }
+}
+
+.template-3 {
+  .submit {
+    width: 100%;
+  }
+}
+
+.template-4,
+.template-3 {
+  width: 700px;
+
+  .popup-inner {
+    display: flex;
+  }
+
+  .popup-image {
+    width: 50%;
+    flex: 0 0 auto;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .popup-content {
+    padding: 3.5rem 2.5rem;
+    text-align: left;
+  }
+}
+
+.template-4 {
+  .popup-image {
+    width: 40%;
+    padding: 1.5rem 0.5rem 1.5rem 1.5rem;
+    border-radius: 5px !important;
+  }
+}
