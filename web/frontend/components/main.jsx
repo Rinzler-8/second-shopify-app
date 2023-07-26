@@ -4,7 +4,6 @@ import {
   Layout,
   LegacyCard,
   FormLayout,
-  Checkbox,
   TextField,
   PageActions,
 } from "@shopify/polaris";
@@ -20,7 +19,7 @@ export function MainPage({ loading }) {
   const fetch = useAuthenticatedFetch();
   const [saving, setSaving] = useState(false);
   const { state, dispatch } = useStore();
-  const { active, title, description, button, button_url } = state;
+  const { title, description, button, button_url } = state;
 
   const handleSave = async (data = {}) => {
     setSaving(true);
@@ -50,20 +49,10 @@ export function MainPage({ loading }) {
       <Layout>
         <Layout.Section secondary>
           <LegacyCard>
-            <LegacyCard title="Status" sectioned>
-              <FormLayout>
-                <Checkbox
-                  label={"Active"}
-                  checked={active}
-                  onChange={(v) => handleChange("active", v)}
-                />
-              </FormLayout>
-            </LegacyCard>
-
             <LegacyCard title="Content settings" sectioned>
               <FormLayout>
                 <TextField
-                  label={"Title"}
+                  label={"Title"}w
                   value={title}
                   onChange={(v) => handleChange("title", v)}
                 />
@@ -93,6 +82,7 @@ export function MainPage({ loading }) {
           </LegacyCard>
 
           <PopupTemplate handleSave={handleSave} />
+          
         </Layout.Section>
         <LayoutSection isStuck>
           <LegacyCard title={"Preview"}>

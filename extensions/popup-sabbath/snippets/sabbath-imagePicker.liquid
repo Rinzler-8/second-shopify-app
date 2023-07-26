@@ -1,0 +1,37 @@
+{% assign value = selected_value %}
+
+{% if label %}
+  <div class="Polaris-Labelled__LabelWrapper">
+    <div class="Polaris-Label">
+      <label class="Polaris-Label__Text">{{ label }}</label>
+    </div>
+  </div>
+{% endif %}
+
+<div class="picker">
+  {% if value or temp_file %}
+    <div class="uploaded-file">
+      {% if loading %}
+        <div class="loading flex justify-center items-center">
+          <div class="spinner"></div>
+        </div>
+      {% endif %}
+      {% if uploaded_file %}
+        <div class="thumbnail">
+          <img src="{{ value }}" alt="" />
+        </div>
+      {% endif %}
+      {% if temp_file %}
+        <div class="thumbnail">
+          <img src="{{ temp_file }}" alt="" />
+        </div>
+      {% endif %}
+      <button class="delete-button" data-action="remove">Remove</button>
+    </div>
+  {% endif %}
+  <div style="width: 120px; height: 120px;">
+    <div class="drop-zone" data-action="drop-zone">
+      <div class="file-upload"></div>
+    </div>
+  </div>
+</div>

@@ -198,7 +198,6 @@ export default function applyPopupApiEndpoints(app) {
 
   app.post("/api/popup", async (req, res) => {
     const newData = {
-      active: req.body.active,
       title: req.body.title,
       description: req.body.description,
       button: req.body.button,
@@ -220,7 +219,7 @@ export default function applyPopupApiEndpoints(app) {
   app.patch("/api/popup/:id", async (req, res) => {
     const popup = await getPopupOr404(req, res);
     const updateData = {
-      active: req.body.active,
+      
       title: req.body.title,
       description: req.body.description,
       button: req.body.button,

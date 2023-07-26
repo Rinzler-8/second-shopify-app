@@ -7,9 +7,7 @@ import Popup3 from "../assets/popup/3.jpg";
 import Popup4 from "../assets/popup/4.jpg";
 import { useStore } from "../pages/container";
 import { LegacyCard, FormLayout } from "@shopify/polaris";
-import { useState } from "react";
 import ColorPickerWithTransparent from "./../components/colorPicker";
-import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
 
 const Wrapper = styled.div`
   .item {
@@ -27,13 +25,10 @@ const Wrapper = styled.div`
 `;
 
 const PopupTemplate = ({ handleSave }) => {
-  const [themeId, setThemeId] = useState("");
   const { state, dispatch } = useStore();
   const { template, image, popup_bg, text_color, button_color } = state;
 
   const handleChange = (key, value) => {
-    console.log("image ", image);
-    console.log("value ", value);
     dispatch({ type: "setData", payload: { [key]: value } });
   };
 
@@ -94,7 +89,6 @@ const PopupTemplate = ({ handleSave }) => {
           <ImagePicker
             label={"Image"}
             value={image}
-            themeId={themeId}
             onChange={(v) => {
               handleChange("image", v);
             }}

@@ -1,0 +1,18 @@
+{% schema %}
+  {
+    "name": "Rich Text Section",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "rich-text",
+        "name": "Rich Text Block"
+      }
+    ]
+  }
+{% endschema %}
+
+{% for block in section.blocks %}
+  <div class="richtext">
+    {{ block.settings.rich_text_block }}
+  </div>
+{% endfor %}

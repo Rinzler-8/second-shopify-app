@@ -1,4 +1,4 @@
-import { useNavigate, TitleBar, Loading } from "@shopify/app-bridge-react";
+import { Loading } from "@shopify/app-bridge-react";
 import { LegacyCard, Layout, Page, SkeletonBodyText } from "@shopify/polaris";
 import { useAppQuery } from "../hooks";
 import { MainPage } from "./../components/main";

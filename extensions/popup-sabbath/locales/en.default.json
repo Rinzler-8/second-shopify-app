@@ -1,10 +1,7 @@
 {
-  "ratings": {
-    "stars": {
-      "label": "Ratings"
-    },
-    "home": {
-      "recommendationText": "Recommended Product!"
-    }
+  "settings": {
+    "title": "Ratings",
+    "description": "Recommended Product!"
+
   }
 }

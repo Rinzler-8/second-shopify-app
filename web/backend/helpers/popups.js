@@ -1,12 +1,4 @@
-import shopify from "../shopify.js";
 import { PopupDB } from "../db.js";
-
-/*
-  The app's database stores the description and the popup_bg.
-  This query is used to get the fields the frontend needs for those IDs.
-  By querying the Shopify GraphQL Admin API at runtime, data can't become stale.
-  This data is also queried so that the full state can be saved to the database, in order to generate QR code links.
-*/
 
 export async function getPopupOr404(req, res, checkDomain = true) {
   try {

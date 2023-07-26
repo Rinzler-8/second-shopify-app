@@ -1,0 +1,71 @@
+{% assign title = settings.title %}
+{% assign description = settings.description %}
+{% assign button = settings.button %}
+{% assign button_url = settings.button_url %}
+{% assign saving = false %}
+
+{% assign state = settings.state %}
+{% assign loading = false %}
+
+{% include 'styles/polaris_styles' %}
+{% include 'scripts/polaris_scripts' %}
+
+<div class="page-wrapper">
+  <div class="content-wrapper">
+    <div class="legacy-card">
+      <div class="legacy-card__title">Content settings</div>
+      <div class="legacy-card__section">
+        <form
+          action=""
+          method="post"
+          id="settings-form">
+          <label class="form-label">Title</label>
+          <input
+            type="text"
+            name="title"
+            value="{{ title }}" />
+
+          <label class="form-label">Description</label>
+          {{ description | rich_text_area }}
+
+          <div class="form-group">
+            <label class="form-label">Button</label>
+            <input
+              type="text"
+              name="button"
+              value="{{ button }}" />
+
+            <label class="form-label">Button link</label>
+            <input
+              type="text"
+              name="button_url"
+              value="{{ button_url }}"
+              placeholder="https://" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% render 'snippets/sabbath-templates' %}
+
+  </div>
+
+  <div class="preview-section">
+    <div class="legacy-card">
+      <div class="legacy-card__title">Preview</div>
+      <div class="legacy-card__section">
+        {% render 'snippets/sabbath-preview' %}
+      </div>
+    </div>
+
+    <div class="page-actions">
+      <button
+        type="submit"
+        form="settings-form"
+        class="primary-action"
+        {% if saving %}disabled{% endif %}>
+        {% if saving %}Saving...{% else %}Save{% endif %}
+      </button>
+    </div>
+  </div>
+</div>
