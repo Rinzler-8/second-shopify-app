@@ -23,15 +23,15 @@ export default class ToastFlash extends Component {
 
   render() {
     const { showToast, message, error, duration } = this.state;
-    // return showToast ? (
-    //   <Toast
-    //     content={message}
-    //     error={error}
-    //     duration={duration}
-    //     onDismiss={this.toggleToast}
-    //   />
-    // ) : null;
-    return null;
+    return showToast ? (
+      <Toast
+        content={message}
+        error={error}
+        duration={duration}
+        onDismiss={this.toggleToast}
+      />
+    ) : null;
+    // return null;
   }
 }
 

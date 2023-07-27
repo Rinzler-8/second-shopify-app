@@ -13,7 +13,7 @@ import { useStore } from "../pages/container";
 import LayoutSection from "./../modules/layoutSection";
 import PopupTemplate from "./templates";
 import PreviewPopup from "./preview";
-import { showToast } from "./../plugins/toast";
+import { showToast } from "../plugins/toast";
 
 export function MainPage({ loading }) {
   const fetch = useAuthenticatedFetch();
@@ -33,9 +33,9 @@ export function MainPage({ loading }) {
     })
       .then(async (res) => {
         if (res.ok) {
-          // return showToast({
-          //   message: "Updated successfully",
-          // });
+          return showToast({
+            message: "Updated successfully",
+          });
         }
       })
       .finally(() => setSaving(false));
@@ -52,7 +52,8 @@ export function MainPage({ loading }) {
             <LegacyCard title="Content settings" sectioned>
               <FormLayout>
                 <TextField
-                  label={"Title"}w
+                  label={"Title"}
+                  w
                   value={title}
                   onChange={(v) => handleChange("title", v)}
                 />
@@ -82,7 +83,6 @@ export function MainPage({ loading }) {
           </LegacyCard>
 
           <PopupTemplate handleSave={handleSave} />
-          
         </Layout.Section>
         <LayoutSection isStuck>
           <LegacyCard title={"Preview"}>

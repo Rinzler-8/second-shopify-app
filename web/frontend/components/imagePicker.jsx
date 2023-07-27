@@ -95,21 +95,6 @@ const ImagePicker = ({
     return response.json();
   };
 
-  const updateFileService = async ({ imageId, altText }) => {
-    const response = await fetch("/api/shopify/update-file", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: imageId,
-        alt: altText,
-      }),
-    });
-
-    return response.json();
-  };
-
   const handleUpload = async (file) => {
     const reader = new FileReader();
     reader.onloadend = async (e) => {
