@@ -14,9 +14,6 @@ const PreviewPopup = () => {
   const previewRef = document.createElement("div");
   previewRef.className = "previewRef";
 
-  const popupOverlay = document.createElement("div");
-  popupOverlay.className = "popup-overlay absolute";
-
   const popup = document.createElement("div");
   popup.className = `popup ${template}`;
   popup.addEventListener("click", (event) => {
@@ -80,7 +77,6 @@ const PreviewPopup = () => {
 
   popup.appendChild(popupInner);
 
-  previewRef.appendChild(popupOverlay);
   previewRef.appendChild(popup);
 
   return previewRef;
