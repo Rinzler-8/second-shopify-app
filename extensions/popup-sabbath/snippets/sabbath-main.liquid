@@ -1,49 +1,42 @@
 {% liquid
-	assign title = shop.metafields.sabbath.title.value
-	assign description = shop.metafields.sabbath.description.value
-	assign button = shop.metafields.sabbath.button.value
-	assign button_url = shop.metafields.sabbath.button_url.value
-	assign popup_bg = shop.metafields.sabbath.popup_bg.value
-	assign text_color = shop.metafields.sabbath.text_color.value
-	assign button_color = shop.metafields.sabbath.button_color.value
-	assign image = shop.metafields.sabbath.image.value
-	assign template = shop.metafields.sabbath.template.value
-
+    assign popup_settings = shop.metafields.sabbath.popup.value
+    assign title = popup_settings.title
+    assign description = popup_settings.description
+    assign button = popup_settings.button
+    assign button_url = popup_settings.button_url
+    assign popup_bg = popup_settings.popup_bg
+    assign text_color = popup_settings.text_color
+    assign button_color = popup_settings.button_color
+    assign image = popup_settings.image
+    assign template = popup_settings.template
 %}
 
-<script id="foxify-app-settings">
-  window.Foxify = window.Foxify || {}
+<script>
+  window.Sabbath = window.Sabbath || {}
 
-  Foxify.Settings = {
-  		title: {{ request.design_mode | json }},
+  Sabbath.Settings = {
+    title: "{{ title }}",
 
-  description: {{ shop.secure_url | json }},
+    description: "{{ description }}",
 
-  button: "{{ template.name }}",
+    button: "{{ button }}",
 
-  button_url: {{ shop.currency | json }},
+    button_url: "{{ button_url }}",
 
-  popup_bg: {{ shop.secure_url | json }},
+    popup_bg: "{{ popup_bg }}",
 
-  text_color:{{ shop.secure_url | json }},
+    text_color: "{{ text_color }}",
 
-  button_color:{{ button_color | json }},
+    button_color: "{{ button_color}}",
 
-  image:{{ image | json }},
+    image: "{{ image }}",
 
-  template:{{ template | json }},
+    template: "{{ template }}"
 
   }
 </script>
 
-<link
-  rel="preconnect"
-  href="https://burst.shopifycdn.com"
-  crossorigin>
-
-
 <script src="{{ 'sabbath-popup.js' | asset_url }}" defer></script>
 {{ 'popup.css' | asset_url | stylesheet_tag }}
 
-
-<div id="popup-container" />
+<div id="popup-container"></div>

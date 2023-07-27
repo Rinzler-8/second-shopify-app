@@ -1,15 +1,4 @@
 const PreviewPopup = () => {
-  // const {
-  //   title,
-  //   description,
-  //   button,
-  //   template,
-  //   image,
-  //   popup_bg,
-  //   text_color,
-  //   button_color,
-  // } = state;
-
   const previewRef = document.createElement("div");
   previewRef.style.position = "relative";
   previewRef.style.width = "100%";
@@ -30,7 +19,6 @@ const PreviewPopup = () => {
 
   const popup = document.createElement("div");
   const template = "template-3";
-  // popup.className = `popup ${template}`;
   popup.className = `popup ${template}`;
 
   const popupInner = document.createElement("div");
@@ -42,10 +30,10 @@ const PreviewPopup = () => {
 
   const closeButton = document.createElement("button");
   closeButton.className = "close absolute rounded-full";
-
-  // const closeIcon = new Icon({ source: MobileCancelMajor });
-  // closeButton.appendChild(closeIcon.node);
-  const closeIcon = "X";
+  closeButton.textContent = "X";
+  closeButton.addEventListener("click", () => {
+    popupContainer.style.opacity = 0;
+  });
 
   const popupImage = document.createElement("div");
   if (template !== "template-1") {
