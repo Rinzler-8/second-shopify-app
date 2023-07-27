@@ -1,9 +1,9 @@
 import { createOrUpdateShopifyMetafield } from "../services/metafield.mjs";
 import { PopupDB, ShopInfoDB } from "../db.js";
-import shopify from "../shopify.js";
+import shopify from "../configs/shopify.js";
 import { FILE_KEY } from "../configs/env.mjs";
 
-const initMetafield = async ({ session, shopDomain }) => {
+export const initMetafield = async ({ session, shopDomain }) => {
   const shopData = await PopupDB.readDomain(shopDomain);
   let themeSettings = shopData;
   await createOrUpdateShopifyMetafield({

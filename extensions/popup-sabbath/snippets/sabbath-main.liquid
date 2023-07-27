@@ -1,5 +1,6 @@
 {% liquid
     assign popup_settings = shop.metafields.sabbath.popup.value
+    
     assign title = popup_settings.title
     assign description = popup_settings.description
     assign button = popup_settings.button
@@ -15,7 +16,7 @@
   window.Sabbath = window.Sabbath || {}
 
   Sabbath.Settings = {
-    title: "{{ title }}",
+    title: {{ title | json }},
 
     description: "{{ description }}",
 
@@ -38,5 +39,7 @@
 
 <script src="{{ 'sabbath-popup.js' | asset_url }}" defer></script>
 {{ 'popup.css' | asset_url | stylesheet_tag }}
+{{ 'helpers.css' | asset_url | stylesheet_tag }}
+{{ 'globals.css' | asset_url | stylesheet_tag }}
 
 <div id="popup-container"></div>

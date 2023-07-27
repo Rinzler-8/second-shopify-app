@@ -11,25 +11,36 @@
   transition: 0.3s ease-out;
 }
 
+.previewRef {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  padding: 80px 50px 150px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .popup {
   width: 420px;
 }
 
-.popup-inner {
+.popup .popup-inner {
   z-index: 1;
   border-radius: 5px;
 }
 
-.popup-inner img {
+.popup .popup-inner img {
   width: 100%;
   border-radius: 5px 5px 0 0;
 }
 
-.popup-content {
+.popup .popup-content {
   padding: 2.5rem;
 }
 
-.close {
+.popup .close {
   position: absolute;
   top: -7px;
   right: -7px;
@@ -51,25 +62,24 @@
   height: 12px;
 }
 
-.popup-overlay {
-  position: absolute;
+.previewRef .popup-overlay {
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
 }
 
-.form {
+.popup .form {
   margin-top: 2rem;
 }
 
-h3 {
+.popup h3 {
   margin-bottom: 1.25rem;
   font-weight: bold;
 }
 
-.submit {
+.popup .submit {
   padding: 1.5rem 2rem;
   box-shadow: none;
   border: 1px solid #000;
@@ -79,86 +89,90 @@ h3 {
   color: white;
 }
 
-.input {
+.popup .submit:hover {
+  cursor: pointer;
+}
+
+.popup .input {
   padding: 1.5rem 2rem;
   border: 1px solid #ccc;
 }
 
-.px-10 {
+.popup .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
 
-.py-4 {
+.popup .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
-.mt-5 {
+.popup .mt-5 {
   margin-top: 1.25rem;
 }
 
-.mt-8 {
+.popup .mt-8 {
   margin-top: 2rem;
 }
 
-.template-1 {
+.popup.template-1 {
   width: 420px;
 }
 
-.template-1 .popup-inner {
+.popup.template-1 .popup-inner {
   padding-bottom: 3rem;
   padding-top: 3rem;
 }
 
-.template-1 .submit {
+.popup.template-1 .submit {
   width: 100%;
 }
 
-.template-4 .form,
-.template-2 .form {
+.popup.template-4 .form,
+.popup.template-2 .form {
   display: flex;
   align-items: center;
 }
 
-.template-4 .form .submit,
-.template-2 .form .submit {
+.popup.template-4 .form .submit,
+.popup.template-2 .form .submit {
   margin: 0 0 0 -2px !important;
 }
 
-.template-3 .submit {
+.popup.template-3 .submit {
   width: 100%;
 }
 
-.template-4,
-.template-3 {
+.popup.template-4,
+.popup.template-3 {
   width: 700px;
 }
 
-.template-4 .popup-inner,
-.template-3 .popup-inner {
+.popup.template-4 .popup-inner,
+.popup.template-3 .popup-inner {
   display: flex;
 }
 
-.template-4 .popup-image,
-.template-3 .popup-image {
+.popup.template-4 .popup-image,
+.popup.template-3 .popup-image {
   width: 50%;
   flex: 0 0 auto;
 }
 
-.template-4 .popup-image img,
-.template-3 .popup-image img {
+.popup.template-4 .popup-image img,
+.popup.template-3 .popup-image img {
   height: 100%;
   object-fit: cover;
 }
 
-.template-4 .popup-content,
-.template-3 .popup-content {
+.popup.template-4 .popup-content,
+.popup.template-3 .popup-content {
   padding: 3.5rem 2.5rem;
   text-align: left;
 }
 
-.template-4 .popup-image {
+.popup.template-4 .popup-image {
   width: 40%;
   padding: 1.5rem 0.5rem 1.5rem 1.5rem;
   border-radius: 5px !important;

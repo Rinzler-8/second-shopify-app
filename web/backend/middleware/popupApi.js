@@ -1,16 +1,10 @@
-/*
-  The custom REST API to support the app frontend.
-  Handlers combine application data from db.js with helpers to merge the Shopify GraphQL Admin API data.
-  The Shop is the Shop that the current user belongs to. For example, the shop that is using the app.
-  This information is retrieved from the Authorization header, which is decoded from the request.
-  The authorization header is added by App Bridge in the frontend code.
-*/
-
 import express from "express";
 
-import shopify from "../shopify.js";
+import shopify from "../configs/shopify.js";
 import { PopupDB } from "../db.js";
 import { getPopupOr404, getShopUrlFromSession } from "../helpers/popups.js";
+import { FILE_KEY } from "../configs/env.mjs";
+import { createOrUpdateShopifyMetafield } from "../services/metafield.mjs";
 
 export default function applyPopupApiEndpoints(app) {
   app.use(express.json());
@@ -218,8 +212,13 @@ export default function applyPopupApiEndpoints(app) {
 
   app.patch("/api/popup/:id", async (req, res) => {
     const popup = await getPopupOr404(req, res);
+    const urlObject = new URL(req.body.shopDomain);
+    const domainName = urlObject.hostname;
+    const session = await shopify.config.sessionStorage.findSessionsByShop(
+      domainName
+    );
+
     const updateData = {
-      
       title: req.body.title,
       description: req.body.description,
       button: req.body.button,
@@ -230,9 +229,17 @@ export default function applyPopupApiEndpoints(app) {
       image: req.body.image,
       template: req.body.template,
     };
+
     if (popup) {
       try {
         await PopupDB.update(req.params.id, updateData);
+        await createOrUpdateShopifyMetafield({
+          key: "popup",
+          session,
+          value: JSON.stringify(updateData),
+          namespace: FILE_KEY,
+          type: "json",
+        });
         const response = await PopupDB.read(req.params.id);
         res.status(200).send(response);
       } catch (error) {

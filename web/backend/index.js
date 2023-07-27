@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 import express from "express";
 import serveStatic from "serve-static";
 
-import shopify from "./shopify.js";
+import shopify from "./configs/shopify.js";
 import applyPopupApiEndpoints from "./middleware/popupApi.js";
 import GDPRWebhookHandlers from "./configs/gdpr.js";
 import { checkShopInstalled } from "./helpers/checkShopInstalled.js";

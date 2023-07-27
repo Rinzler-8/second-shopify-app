@@ -4,9 +4,9 @@
 
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
+import { MONGODB_URI } from "./configs/env.mjs";
 
-const uri = "mongodb://localhost:27017"; // Replace with your MongoDB URI
-const client = new MongoClient(uri);
+const client = new MongoClient(MONGODB_URI);
 let db;
 
 async function connectToDB() {

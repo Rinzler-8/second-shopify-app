@@ -1,0 +1,144 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table td,
+table th {
+  border: 1px solid #ebebeb;
+}
+
+.Polaris-Icon__Svg {
+  color: var(--p-icon) !important;
+}
+
+.Polaris-Navigation__Item--selected .Polaris-Icon__Svg {
+  color: var(--p-text-primary) !important;
+}
+
+.install-page .Polaris-Frame {
+  display: none;
+}
+
+.Polaris-Header-Title {
+  font-size: 2.5rem;
+}
+
+.Polaris-SkeletonThumbnail--sizeLarge {
+  width: 100%;
+  height: 250px;
+}
+
+.Polaris-LegacyCard .Polaris-LegacyCard {
+  box-shadow: none;
+  border-bottom: 0.1rem solid var(--p-divider);
+}
+
+.Polaris-EmptyState--withinContentContainer .Polaris-EmptyState__Details {
+  max-width: 45rem !important;
+}
+
+.Polaris-AccountConnection__Content > div:first-child {
+  font-weight: 600;
+  line-height: 2.4rem;
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.Polaris-ResourceItem__Container {
+  align-items: center;
+}
+
+.Polaris-ChoiceList__Title,
+.Polaris-Label__Text {
+  font-weight: 500;
+}
+
+.rte {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: #666;
+  padding: 0 2rem;
+}
+
+.rte p {
+  margin: 20px 0;
+}
+
+.rte h1,
+.rte h2,
+.rte h3,
+.rte h4,
+.rte h5,
+.rte h6 {
+  font-weight: 500;
+  margin: 24px 0 15px;
+  line-height: 1.35;
+}
+
+.rte li {
+  line-height: 28px;
+}
+
+.rte li::marker {
+  font-weight: 500;
+}
+
+.rte h1 {
+  font-size: 3rem;
+}
+
+.rte h2 {
+  font-size: 2.6rem;
+}
+
+.rte h3 {
+  font-size: 2.4rem;
+}
+
+.rte h4 {
+  font-size: 2.2rem;
+}
+
+.rte h5 {
+  font-size: 1.8rem;
+}
+
+.rte td,
+.rte th {
+  padding: 1rem;
+  border-bottom: 1px solid #ebebeb;
+  border-right: 1px solid #ebebeb;
+}
+
+.rte td:last-child,
+.rte th:last-child {
+  border-right: 0;
+}
+
+.rte td p:first-child,
+.rte td p:last-child,
+.rte th p:first-child,
+.rte th p:last-child {
+  margin: 0;
+}

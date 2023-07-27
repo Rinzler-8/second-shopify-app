@@ -1,38 +1,39 @@
 const PreviewPopup = () => {
+  const {
+    title,
+    description,
+    button,
+    button_url,
+    template,
+    image,
+    popup_bg,
+    text_color,
+    button_color,
+  } = window.Sabbath.Settings;
+
   const previewRef = document.createElement("div");
-  previewRef.style.position = "relative";
-  previewRef.style.width = "100%";
-  previewRef.style.minHeight = "500px";
-  previewRef.style.padding = "80px 50px 150px 50px";
-  previewRef.style.display = "flex";
-  previewRef.style.alignItems = "center";
-  previewRef.style.justifyContent = "center";
-  previewRef.style.flexWrap = "wrap";
+  previewRef.className = "previewRef";
 
   const popupOverlay = document.createElement("div");
   popupOverlay.className = "popup-overlay absolute";
-  popupOverlay.style.background = "rgba(0, 0, 0, 0.3)";
-  popupOverlay.style.top = "0";
-  popupOverlay.style.left = "0";
-  popupOverlay.style.width = "100%";
-  popupOverlay.style.height = "100%";
 
   const popup = document.createElement("div");
-  const template = "template-3";
   popup.className = `popup ${template}`;
+  popup.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
 
   const popupInner = document.createElement("div");
   popupInner.className = "popup-inner relative text-center";
-  // popupInner.style.backgroundColor = popup_bg;
-  popupInner.style.backgroundColor = "#ffffff";
-  // popupInner.style.color = text_color;
-  popupInner.style.color = "#000";
+  popupInner.style.backgroundColor = popup_bg;
+  popupInner.style.color = text_color;
 
   const closeButton = document.createElement("button");
   closeButton.className = "close absolute rounded-full";
   closeButton.textContent = "X";
   closeButton.addEventListener("click", () => {
     popupContainer.style.opacity = 0;
+    popupContainer.style.zIndex = 1;
   });
 
   const popupImage = document.createElement("div");
@@ -40,15 +41,10 @@ const PreviewPopup = () => {
     popupImage.className = "popup-image";
 
     const img = document.createElement("img");
-    img.src =
-      "https://cdn.shopify.com/s/files/1/0792/0664/6076/files/CompressionNavy_244f31dc-e787-4435-88ba-16a222d12473.png?v=1690364896"
-        ? "https://cdn.shopify.com/s/files/1/0792/0664/6076/files/CompressionNavy_244f31dc-e787-4435-88ba-16a222d12473.png?v=1690364896"
-        : "https://via.placeholder.com/820x400.png?text=Your+image";
+    img.src = image
+      ? image
+      : "https://via.placeholder.com/820x400.png?text=Your+image";
     img.alt = "";
-    // img.src = image
-    //   ? image
-    //   : "https://via.placeholder.com/820x400.png?text=Your+image";
-    // img.alt = "";
 
     popupImage.appendChild(img);
   }
@@ -58,24 +54,21 @@ const PreviewPopup = () => {
 
   const titleElement = document.createElement("h3");
   titleElement.className = "text-4xl px-5 font-medium title";
-  // titleElement.textContent = title;
-  titleElement.textContent = "Don't want to miss anything?";
+  titleElement.textContent = title;
 
   const descriptionElement = document.createElement("div");
-  descriptionElement.className = "text-2xl mt-4 description";
-  // descriptionElement.innerHTML = description;
-  descriptionElement.innerHTML =
-    "<p>Be the first to see new arrivals, exclusive deals and much more.</p>";
+  descriptionElement.className = "text-2xl mt-4";
+  descriptionElement.innerHTML = description;
 
   const buttonElement = document.createElement("button");
-  buttonElement.style.backgroundColor = "#000";
-  // buttonElement.style.backgroundColor = button_color;
-  // buttonElement.style.borderColor = button_color;
-  buttonElement.style.borderColor = "#000";
+  buttonElement.style.backgroundColor = button_color;
+  buttonElement.style.borderColor = button_color;
   buttonElement.className =
-    "bg-black text-white uppercase font-medium rounded mt-5 text-center pointer-event-none submit";
-  // buttonElement.textContent = button;
-  buttonElement.textContent = "Subscribed";
+    "popup-button bg-black text-white uppercase font-medium rounded mt-5 text-center submit";
+  buttonElement.textContent = button;
+  buttonElement.addEventListener("click", () => {
+    window.location.href = button_url;
+  });
 
   popupContent.appendChild(titleElement);
   popupContent.appendChild(descriptionElement);
@@ -93,5 +86,9 @@ const PreviewPopup = () => {
   return previewRef;
 };
 const popupContainer = document.getElementById("popup-container");
+popupContainer.addEventListener("click", () => {
+  popupContainer.style.opacity = 0;
+  popupContainer.style.zIndex = 1;
+});
 const popupElement = PreviewPopup();
 popupContainer.appendChild(popupElement);
