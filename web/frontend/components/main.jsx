@@ -25,7 +25,6 @@ export function MainPage({ loading }) {
     setSaving(true);
     const saveData = { ...state, ...data };
     dispatch({ type: "setData", payload: saveData });
-    delete saveData["updatedAt"];
     await fetch(`api/popup/${state._id}`, {
       method: "PATCH",
       body: JSON.stringify(saveData),
@@ -53,7 +52,6 @@ export function MainPage({ loading }) {
               <FormLayout>
                 <TextField
                   label={"Title"}
-                  w
                   value={title}
                   onChange={(v) => handleChange("title", v)}
                 />

@@ -240,11 +240,6 @@ export const PopupDB = {
 
   /* Private */
 
-  /*
-    Used to check whether to create the collection.
-    Also used to make sure the collection is set up before the server starts.
-  */
-
   __hasPopupCollection: async function () {
     const collections = await db
       .listCollections({ name: this.popupTableName })

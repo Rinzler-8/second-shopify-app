@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 .popup {
@@ -51,6 +51,7 @@
   height: 26px;
   border: none;
   border-radius: 50%;
+  padding: 0;
 }
 
 .close:hover {

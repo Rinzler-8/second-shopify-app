@@ -14,7 +14,7 @@ const PORT = parseInt(
   10
 );
 
-const frontendPath = dirname(process.cwd()); // This will go one directory level up to remove the 'backend' part
+const frontendPath = dirname(process.cwd());
 const STATIC_PATH =
   process.env.NODE_ENV === "production"
     ? join(frontendPath, "/frontend/dist")
@@ -40,10 +40,6 @@ app.get(
 );
 app.post(
   shopify.config.webhooks.path,
-  (req, res, next) => {
-    console.log("process webhooks");
-    next();
-  },
   shopify.processWebhooks({ webhookHandlers: GDPRWebhookHandlers })
 );
 

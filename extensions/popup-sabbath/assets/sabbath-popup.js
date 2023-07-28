@@ -28,9 +28,8 @@ const PreviewPopup = () => {
   const closeButton = document.createElement("button");
   closeButton.className = "close absolute rounded-full";
   closeButton.textContent = "X";
-  closeButton.addEventListener("click", () => {
-    popupContainer.style.opacity = 0;
-    popupContainer.style.zIndex = 1;
+  closeButton.addEventListener("click", (event) => {
+    popupContainer.remove();
   });
 
   const popupImage = document.createElement("div");
@@ -83,8 +82,7 @@ const PreviewPopup = () => {
 };
 const popupContainer = document.getElementById("popup-container");
 popupContainer.addEventListener("click", () => {
-  popupContainer.style.opacity = 0;
-  popupContainer.style.zIndex = 1;
+  popupContainer.remove();
 });
 const popupElement = PreviewPopup();
 popupContainer.appendChild(popupElement);
