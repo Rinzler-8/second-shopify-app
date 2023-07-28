@@ -81,6 +81,7 @@ export function MainPage({ loading }) {
           </LegacyCard>
 
           <PopupTemplate handleSave={handleSave} />
+          
         </Layout.Section>
         <LayoutSection isStuck>
           <LegacyCard title={"Preview"}>

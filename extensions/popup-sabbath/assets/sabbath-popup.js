@@ -28,7 +28,7 @@ const PreviewPopup = () => {
   const closeButton = document.createElement("button");
   closeButton.className = "close absolute rounded-full";
   closeButton.textContent = "X";
-  closeButton.addEventListener("click", (event) => {
+  closeButton.addEventListener("click", () => {
     popupContainer.remove();
   });
 

@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { DropZone, Thumbnail, Spinner, Button } from "@shopify/polaris";
 import styled from "styled-components";
 import { useAuthenticatedFetch } from "./../hooks/useAuthenticatedFetch";
-import slugify from "slugify";
 import { DeleteMajor } from "@shopify/polaris-icons";
-import { showToast } from "./../plugins/toast";
 import axios from "axios";
 
 const Picker = styled.div`
@@ -39,7 +37,6 @@ const ImagePicker = ({
   value,
   onChange,
   label = null,
-  themeId,
   onSuccess,
   onRemove,
 }) => {

@@ -36,7 +36,6 @@ const ColorPickerWithTransparent = (props) => {
     <div onClick={toggleOpenPicker}>
       <TextField
         value={props.value}
-        // readOnly
         onChange={(v) => props.onChange(v)}
         connectedRight={
           <div

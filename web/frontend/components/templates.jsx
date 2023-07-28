@@ -93,11 +93,10 @@ const PopupTemplate = ({ handleSave }) => {
               handleChange("image", v);
             }}
             onSuccess={(e) => {
-              handleSave({ image: e });
+              handleChange(image, e);
             }}
             onRemove={() => {
               handleChange("image", "");
-              handleSave({ image: "" });
             }}
           />
         </FormLayout>
